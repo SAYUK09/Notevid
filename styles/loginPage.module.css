@@ -1,0 +1,15 @@
+.blob svg {
+  position: absolute;
+  width: 20rem;
+  height: 15rem;
+}
+
+.topBlob svg {
+  top: -70px;
+  left: 0px;
+}
+
+.bottomBlob svg {
+  bottom: 0px;
+  right: -50px;
+}
