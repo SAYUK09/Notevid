@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC5utU_IjuPt9xSfYICDrHmQywBCZYetVE",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASEAPI,
   authDomain: "notevid.firebaseapp.com",
   projectId: "notevid",
   storageBucket: "notevid.appspot.com",

@@ -2,12 +2,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext({});
 
-export type AuthUser = {
+export interface AuthUser {
   name: string;
   email: string;
   photo: string;
   uid: string;
-};
+}
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<AuthUser>({

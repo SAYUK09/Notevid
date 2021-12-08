@@ -12,7 +12,7 @@ import {
 import Styles from "../../styles/loginPage.module.css";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
-import { AuthUser, useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/authContext";
 
 export const Login = () => {
   const { user, setUser }: any = useAuth();
