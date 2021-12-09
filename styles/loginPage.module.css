@@ -1,0 +1,13 @@
+.topBlob {
+  position: absolute;
+  top: -70px;
+  left: 0px;
+  width: 15rem;
+}
+
+.bottomBlob {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 15rem;
+}
