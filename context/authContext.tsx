@@ -1,6 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
-
-export const AuthContext = createContext({});
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export interface AuthUser {
   name: string;
@@ -8,6 +13,12 @@ export interface AuthUser {
   photo: string;
   uid: string;
 }
+export interface IAuth {
+  user: AuthUser;
+  setUser: Dispatch<SetStateAction<AuthUser>>;
+}
+
+export const AuthContext = createContext({} as IAuth);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<AuthUser>({
@@ -32,6 +43,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
+export const useAuth = (): IAuth => {
   return useContext(AuthContext);
 };
