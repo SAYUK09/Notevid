@@ -25,14 +25,9 @@ async function dbConnect() {
       useUnifiedTopology: true,
     };
 
-    cached.promise = mongoose
-      .connect(
-        "mongodb+srv://sayuk:notevid@cluster0.uvkbx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-        opts
-      )
-      .then((mongoose) => {
-        return mongoose;
-      });
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose;
+    });
   }
   cached.conn = await cached.promise;
   return cached.conn;
