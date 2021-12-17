@@ -1,24 +1,18 @@
 import type { NextPage } from "next";
-import { ColorModeScript, useColorMode, Button } from "@chakra-ui/react";
+import { ColorModeScript } from "@chakra-ui/react";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { Heading } from "@chakra-ui/react";
-import { useEffect } from "react";
 import theme from "../config/chakraConfig";
+import { Navbar } from "../components/login/navbar";
 
 const Home: NextPage = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   return (
     <div>
+      <Head>
+        <title>NoteVid</title>
+      </Head>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Heading as="h1" size="xl" isTruncated>
-        NoteVid: {process.env.NEXT_PUBLIC_FIREBASEAPI}
-      </Heading>
-      <Button onClick={toggleColorMode}>
-        Toggle {colorMode === "light" ? "Dark" : "Light"}
-      </Button>
+
+      <Navbar />
     </div>
   );
 };
