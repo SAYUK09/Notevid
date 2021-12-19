@@ -19,12 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaBell, FaClipboardCheck } from "react-icons/fa";
 import { RiMenu4Fill } from "react-icons/ri";
-import {
-  BsFillSunFill,
-  BsMoonFill,
-  BsSearch,
-  BsCollectionFill,
-} from "react-icons/bs";
+import { BsFillSunFill, BsMoonFill, BsSearch } from "react-icons/bs";
 import { useRef } from "react";
 import Logo from "../../public/svgs/logo.svg";
 import { MdHome } from "react-icons/md";
