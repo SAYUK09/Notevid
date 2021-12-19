@@ -99,7 +99,7 @@ export function Navbar() {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bgColor={useColorModeValue("#F5FAF8", "#191A22")}>
           <DrawerCloseButton alignSelf={"center"} />
 
           <DrawerHeader>
