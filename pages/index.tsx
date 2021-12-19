@@ -35,36 +35,6 @@ const Home: NextPage = () => {
           );
         })}
       </SimpleGrid>
-
-      {/* <VideoCard
-          imageUrl={"https://bit.ly/2Z4KKcF"}
-          imageAlt={"video"}
-          title={"video title"}
-          date={"2 days ago"}
-          views={"12m"}
-        />
-        <VideoCard
-          imageUrl={"https://bit.ly/2Z4KKcF"}
-          imageAlt={"video"}
-          title={"video title"}
-          date={"2 days ago"}
-          views={"12m"}
-        />
-        <VideoCard
-          imageUrl={"https://bit.ly/2Z4KKcF"}
-          imageAlt={"video"}
-          title={"video title"}
-          date={"2 days ago"}
-          views={"12m"}
-        />
-        <VideoCard
-          imageUrl={"https://bit.ly/2Z4KKcF"}
-          imageAlt={"video"}
-          title={"video title"}
-          date={"2 days ago"}
-          views={"12m"}
-        /> */}
-      {/* </Flex> */}
     </div>
   );
 };
