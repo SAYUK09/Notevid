@@ -4,9 +4,11 @@ import Head from "next/head";
 import theme from "../config/chakraConfig";
 import { Navbar } from "../components/login/navbar";
 import VideoCard from "../components/login/videoCard";
+import { useVideos } from "../context/videosContext";
 
 const Home: NextPage = () => {
-  const arr = [1, 2, 3, 4, 5, 7, 8, 9];
+  const { videos } = useVideos();
+
   return (
     <div>
       <Head>
@@ -23,14 +25,13 @@ const Home: NextPage = () => {
         minChildWidth="17rem"
         spacing="8"
       >
-        {arr.map(() => {
+        {videos.map((video) => {
           return (
             <VideoCard
-              imageUrl={"https://bit.ly/2Z4KKcF"}
-              imageAlt={"video"}
-              title={"video title"}
-              date={"2 days ago"}
-              views={"12m"}
+              imageUrl={video.thumbnail}
+              imageAlt={video.title}
+              title={video.title}
+              channel={video.channelTitle}
             />
           );
         })}

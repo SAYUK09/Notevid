@@ -9,43 +9,24 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-export default function VideoCard({
-  imageUrl,
-  imageAlt,
-  date,
-  views,
-  title,
-}: any) {
+export default function VideoCard({ imageUrl, imageAlt, title, channel }: any) {
   return (
     <Flex justifyContent={"center"}>
       <Box bg={useColorModeValue("white", "gray.800")} maxW="sm">
         <Image src={imageUrl} alt={imageAlt} rounded="lg" />
         <Box py="2">
           <Box d="flex" alignItems="center">
-            <Avatar
-              my={1}
-              size="sm"
-              name="anubra266"
-              src="https://avatars.githubusercontent.com/u/68416000?v=4"
-              cursor="pointer"
-            />
+            <Avatar my={1} size="sm" name={channel} src="" cursor="pointer" />
 
             <Box
               color={useColorModeValue("gray.800", "#F5F8FA")}
               fontWeight="semibold"
               letterSpacing="wide"
               ml="2"
+              maxW={"15rem"}
             >
-              <Text fontSize={"lg"} isTruncated>
+              <Text fontSize={"lg"} noOfLines={2} lineHeight={"1.1"}>
                 {title}
-              </Text>
-              <Text
-                p="0"
-                m="0"
-                fontSize={"xs"}
-                textColor={useColorModeValue("gray.700", "gray.400")}
-              >
-                Channel Name
               </Text>
             </Box>
           </Box>
@@ -54,15 +35,10 @@ export default function VideoCard({
             fontWeight="semibold"
             letterSpacing="wide"
             ml="10"
-            mt={"2px"}
+            fontSize={"sm"}
+            mt={"1"}
           >
-            <Text
-              fontSize={"xs"}
-              textColor={useColorModeValue("gray.700", "gray.400")}
-            >
-              {date} <span style={{ color: "#FFC831" }}>&bull; </span>
-              {views}
-            </Text>
+            <Text>{channel}</Text>
           </Box>
         </Box>
       </Box>
