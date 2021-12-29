@@ -6,42 +6,52 @@ import {
   Text,
   useColorModeValue,
   Image,
+  Link,
 } from "@chakra-ui/react";
+// import Link from "next/link";
 import React from "react";
 
-export default function VideoCard({ imageUrl, imageAlt, title, channel }: any) {
+export default function VideoCard({
+  imageUrl,
+  imageAlt,
+  title,
+  channel,
+  id,
+}: any) {
   return (
     <Flex justifyContent={"center"}>
-      <Box bg={useColorModeValue("white", "gray.800")} maxW="sm">
-        <Image src={imageUrl} alt={imageAlt} rounded="lg" />
-        <Box py="2">
-          <Box d="flex" alignItems="center">
-            <Avatar my={1} size="sm" name={channel} src="" cursor="pointer" />
+      <Link href={`/video/${id}`}>
+        <Box bg={useColorModeValue("white", "gray.800")} maxW="sm">
+          <Image src={imageUrl} alt={imageAlt} rounded="lg" />
+          <Box py="2">
+            <Box d="flex" alignItems="center">
+              <Avatar my={1} size="sm" name={channel} src="" cursor="pointer" />
 
+              <Box
+                color={useColorModeValue("gray.800", "#F5F8FA")}
+                fontWeight="semibold"
+                letterSpacing="wide"
+                ml="2"
+                maxW={"15rem"}
+              >
+                <Text fontSize={"lg"} noOfLines={2} lineHeight={"1.1"}>
+                  {title}
+                </Text>
+              </Box>
+            </Box>
             <Box
               color={useColorModeValue("gray.800", "#F5F8FA")}
               fontWeight="semibold"
               letterSpacing="wide"
-              ml="2"
-              maxW={"15rem"}
+              ml="10"
+              fontSize={"sm"}
+              mt={"1"}
             >
-              <Text fontSize={"lg"} noOfLines={2} lineHeight={"1.1"}>
-                {title}
-              </Text>
+              <Text>{channel}</Text>
             </Box>
           </Box>
-          <Box
-            color={useColorModeValue("gray.800", "#F5F8FA")}
-            fontWeight="semibold"
-            letterSpacing="wide"
-            ml="10"
-            fontSize={"sm"}
-            mt={"1"}
-          >
-            <Text>{channel}</Text>
-          </Box>
         </Box>
-      </Box>
+      </Link>
     </Flex>
   );
 }
