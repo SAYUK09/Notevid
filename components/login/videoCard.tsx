@@ -11,13 +11,21 @@ import {
 // import Link from "next/link";
 import React from "react";
 
+export interface IVideoCard {
+  imageUrl: string;
+  imageAlt: string;
+  title: string;
+  channel: string;
+  id: string;
+}
+
 export default function VideoCard({
   imageUrl,
   imageAlt,
   title,
   channel,
   id,
-}: any) {
+}: IVideoCard) {
   return (
     <Flex justifyContent={"center"}>
       <Link href={`/video/${id}`}>

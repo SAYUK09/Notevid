@@ -4,7 +4,13 @@ import React from "react";
 import VideoPlayer from "../../components/login/videoPlay";
 import axios from "axios";
 
-export async function getStaticProps({ params }: any) {
+type Params = {
+  params: {
+    id: string;
+  };
+};
+
+export async function getStaticProps({ params }: Params) {
   const id = params.id;
   return {
     props: {
@@ -39,7 +45,7 @@ export default function Video({ id }: any) {
     <Flex>
       <VideoPlayer id={id} />
 
-      <Text>{router.isFallback ? "lod" : "LALAl"}</Text>
+      <Text>{router.isFallback ? "loading" : "Playing Video"}</Text>
     </Flex>
   );
 }
