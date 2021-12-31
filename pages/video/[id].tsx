@@ -30,8 +30,6 @@ export async function getStaticPaths() {
     return { params: { id: video.id.videoId } };
   });
 
-  console.log(paths, "paths");
-
   return {
     paths,
     fallback: true,

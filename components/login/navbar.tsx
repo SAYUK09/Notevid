@@ -41,8 +41,8 @@ export function Navbar() {
         cursor="pointer"
         color={useColorModeValue("inherit", "gray.400")}
         _hover={{
-          bg: "#191A22",
-          color: useColorModeValue("#F5F8FA", "gray.200"),
+          bg: "dark.100",
+          color: useColorModeValue("light.100", "gray.200"),
         }}
         role="group"
         fontWeight="semibold"
@@ -71,17 +71,17 @@ export function Navbar() {
       justify="space-between"
       w={"full"}
       px="6"
-      bg={useColorModeValue("#F5F8FA", "#191A22")}
+      bg={useColorModeValue("light.100", "dark.100")}
       borderBottomWidth="1px"
       borderColor={useColorModeValue("inherit", "gray.700")}
       h="14"
     >
       <IconButton
-        borderColor={useColorModeValue("#191A22", "#F5F8FA")}
+        borderColor={useColorModeValue("dark.100", "light.100")}
         ref={btnRef}
         onClick={onOpen}
         variant="outline"
-        color="#FFC831"
+        color="brand.100"
         aria-label="Menu"
         icon={<RiMenu4Fill />}
       />
@@ -99,7 +99,7 @@ export function Navbar() {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent bgColor={useColorModeValue("#F5FAF8", "#191A22")}>
+        <DrawerContent bgColor={useColorModeValue("#F5FAF8", "dark.100")}>
           <DrawerCloseButton alignSelf={"center"} />
 
           <DrawerHeader>
@@ -127,11 +127,11 @@ export function Navbar() {
       </Drawer>
 
       <InputGroup
-        borderColor={useColorModeValue("#191A22", "#F5F8FA")}
+        borderColor={useColorModeValue("dark.100", "light.100")}
         w="96"
         display={{ base: "none", md: "flex" }}
       >
-        <InputLeftElement color="#FFC831" children={<BsSearch />} />
+        <InputLeftElement color="brand.100" children={<BsSearch />} />
         <Input placeholder="Search for videos..." />
       </InputGroup>
 
@@ -140,14 +140,14 @@ export function Navbar() {
           padding={"0"}
           borderRadius={"50%"}
           onClick={toggleColorMode}
-          color="#FFC831"
+          color="brand.100"
           aria-label="dark-mode-toggle"
           mx={"2"}
         >
           {colorMode === "light" ? <BsMoonFill /> : <BsFillSunFill />}
         </IconButton>
 
-        <Icon mx={"2"} color="#FFC831" as={FaBell} cursor="pointer" />
+        <Icon mx={"2"} color="brand.100" as={FaBell} cursor="pointer" />
         <Avatar
           ml="4"
           size="sm"

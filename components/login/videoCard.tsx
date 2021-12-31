@@ -36,7 +36,7 @@ export default function VideoCard({
               <Avatar my={1} size="sm" name={channel} src="" cursor="pointer" />
 
               <Box
-                color={useColorModeValue("gray.800", "#F5F8FA")}
+                color={useColorModeValue("gray.800", "light.100")}
                 fontWeight="semibold"
                 letterSpacing="wide"
                 ml="2"
@@ -48,7 +48,7 @@ export default function VideoCard({
               </Box>
             </Box>
             <Box
-              color={useColorModeValue("gray.800", "#F5F8FA")}
+              color={useColorModeValue("gray.800", "light.100")}
               fontWeight="semibold"
               letterSpacing="wide"
               ml="10"
