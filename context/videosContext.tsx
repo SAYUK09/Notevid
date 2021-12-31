@@ -1,32 +1,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { IVideoArr, IVideoContext } from "../types";
 
-export interface VideoArr {
-  videoId: string;
-  channelId: string;
-  channelTitle: string;
-  description: string;
-  publishTime: string;
-  thumbnail: string;
-  title: string;
-}
-
-export interface VideoContext {
-  videos: VideoArr[];
-}
-
-export const VideoContext = createContext({} as VideoContext);
+export const VideoContext = createContext({} as IVideoContext);
 
 export const VideoProvider: React.FC = ({ children }) => {
-  const [videoArr, setVideoArr] = useState<VideoArr[]>([
+  const [videoArr, setVideoArr] = useState<IVideoArr[]>([
     {
-      videoId: " string",
-      channelId: " string",
-      channelTitle: " string",
-      description: " string",
-      publishTime: " string",
-      thumbnail: " string",
-      title: " string",
+      videoId: "string",
+      channelId: "string",
+      channelTitle: "string",
+      description: "string",
+      publishTime: "string",
+      thumbnail: "string",
+      title: "string",
     },
   ]);
   useEffect(() => {

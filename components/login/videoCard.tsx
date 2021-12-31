@@ -8,16 +8,8 @@ import {
   Image,
   Link,
 } from "@chakra-ui/react";
-// import Link from "next/link";
+import { IVideoCard } from "../../types";
 import React from "react";
-
-export interface IVideoCard {
-  imageUrl: string;
-  imageAlt: string;
-  title: string;
-  channel: string;
-  id: string;
-}
 
 export default function VideoCard({
   imageUrl,
