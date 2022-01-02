@@ -14,8 +14,9 @@ import {
 import Styles from "../../styles/loginPage.module.css";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
-import { useAuth, AuthUser } from "../../context/authContext";
+import { useAuth } from "../../context/authContext";
 import axios from "axios";
+import { IAuthUser } from "../../types";
 
 export const Login = () => {
   const { user, setUser } = useAuth();
@@ -40,7 +41,7 @@ export const Login = () => {
       });
   }
 
-  async function registerUser(userData: AuthUser) {
+  async function registerUser(userData: IAuthUser) {
     const data = await axios.post("/api/user", { details: userData });
     localStorage.setItem("auth", JSON.stringify(userData));
     setUser(userData);
