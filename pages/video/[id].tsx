@@ -18,6 +18,7 @@ import {
   Stack,
   useColorModeValue,
   VStack,
+  Flex,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
@@ -75,87 +76,79 @@ export default function Video({ id }: any) {
     //   </Box>
     // </SimpleGrid>
 
-    <Grid templateColumns="1fr 300px" height={"100vh"} gap={6}>
-      {/* <Box
+    <Flex height={"100vh"} wrap={"wrap"}>
+      <Box
         backgroundColor={"yellow"}
         alignItems={"center"}
         justifyContent={"center"}
         width={"60%"}
       >
-        <VideoPlayer style={{ width: "100%" }} id={id} />
-      </Box> */}
+        <Box height={"500px"} minH={"300px"} width={"100%"}>
+          <VideoPlayer height="100%" width="100%" id={id} />
+        </Box>
+      </Box>
 
-      <Box height={"90%"}>
-        <Box height={"90%"} backgroundColor={"black"}>
-          <Box mx={"auto"} maxW={"lg"} py={2} px={6}>
-            {/* <Stack align={"center"}>
+      <Box maxH={"100vh"} backgroundColor={"black"}>
+        <Box mx={"auto"} maxW={"lg"} py={2} px={6}>
+          <Stack align={"center"}>
             <Heading fontSize={"4xl"} textAlign={"center"}>
               Notes
             </Heading>
             <Text fontSize={"lg"} color={"gray.600"}>
               Note all of it down! 📝
             </Text>
-          </Stack> */}
+          </Stack>
 
-            <Box
-              rounded={"lg"}
-              bg={useColorModeValue("white", "gray.700")}
-              boxShadow={"lg"}
-              p={8}
-            >
-              <Box>
-                <Box overflowY={"scroll"}>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
-                  <h1>LLALA</h1>
+          <Box
+            rounded={"lg"}
+            bg={useColorModeValue("white", "gray.700")}
+            boxShadow={"lg"}
+            p={8}
+            maxH={"90%"}
+          >
+            <Box maxH={"90%"}>
+              <Box height={"70vh"} overflowY={"auto"}>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
+                <h1>LLALA</h1>
 
-                  {/* <Button minH={20}>LALAL</Button>
+                {/* <Button minH={20}>LALAL</Button>
                 <Button minH={20}>LALAL</Button>
                 <Button minH={20}>LALAL</Button>
                 <Button minH={20}>LALAL</Button>
                 <Button minH={20}>LALAL</Button>
                 <Button minH={20}>LALAL</Button>
                 <Button minH={20}>LALAL</Button> */}
-                </Box>
-
-                <HStack mt={"auto"}>
-                  <FormControl id="email" isRequired>
-                    <Input type="email" />
-                  </FormControl>
-                  <Button>Note</Button>
-                </HStack>
               </Box>
+
+              <HStack mt={"auto"}>
+                <FormControl id="email" isRequired>
+                  <Input type="email" />
+                </FormControl>
+                <Button>Note</Button>
+              </HStack>
             </Box>
           </Box>
         </Box>
       </Box>
-    </Grid>
+    </Flex>
   );
 }
