@@ -1,4 +1,24 @@
-import { Text, Flex } from "@chakra-ui/react";
+import {
+  Text,
+  SimpleGrid,
+  Box,
+  Grid,
+  GridItem,
+  Wrap,
+  WrapItem,
+  Button,
+  FormControl,
+  FormLabel,
+  Heading,
+  HStack,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Link,
+  Stack,
+  useColorModeValue,
+  VStack,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import VideoPlayer from "../../components/login/videoPlay";
@@ -40,10 +60,102 @@ export default function Video({ id }: any) {
   const router = useRouter();
 
   return (
-    <Flex>
-      <VideoPlayer id={id} />
+    // <SimpleGrid m={2} columns={[1, 2]}>
+    //   <Box
+    //     backgroundColor={"yellow"}
+    //     alignItems={"center"}
+    //     justifyContent={"center"}
+    //     width={"90vw"}
+    //   >
+    //     <VideoPlayer id={id} />
+    //   </Box>
 
-      <Text>{router.isFallback ? "loading" : "Playing Video"}</Text>
-    </Flex>
+    //   <Box maxW={5} backgroundColor={"black"}>
+    //     <Text>{router.isFallback ? "loading" : "Playing Video"}</Text>
+    //   </Box>
+    // </SimpleGrid>
+
+    <Grid templateColumns="1fr 300px" height={"100vh"} gap={6}>
+      {/* <Box
+        backgroundColor={"yellow"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        width={"60%"}
+      >
+        <VideoPlayer style={{ width: "100%" }} id={id} />
+      </Box> */}
+
+      <Box height={"90%"}>
+        <Box height={"90%"} backgroundColor={"black"}>
+          <Box mx={"auto"} maxW={"lg"} py={2} px={6}>
+            {/* <Stack align={"center"}>
+            <Heading fontSize={"4xl"} textAlign={"center"}>
+              Notes
+            </Heading>
+            <Text fontSize={"lg"} color={"gray.600"}>
+              Note all of it down! 📝
+            </Text>
+          </Stack> */}
+
+            <Box
+              rounded={"lg"}
+              bg={useColorModeValue("white", "gray.700")}
+              boxShadow={"lg"}
+              p={8}
+            >
+              <Box>
+                <Box overflowY={"scroll"}>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+                  <h1>LLALA</h1>
+
+                  {/* <Button minH={20}>LALAL</Button>
+                <Button minH={20}>LALAL</Button>
+                <Button minH={20}>LALAL</Button>
+                <Button minH={20}>LALAL</Button>
+                <Button minH={20}>LALAL</Button>
+                <Button minH={20}>LALAL</Button>
+                <Button minH={20}>LALAL</Button> */}
+                </Box>
+
+                <HStack mt={"auto"}>
+                  <FormControl id="email" isRequired>
+                    <Input type="email" />
+                  </FormControl>
+                  <Button>Note</Button>
+                </HStack>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Grid>
   );
 }
