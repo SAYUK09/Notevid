@@ -21,7 +21,7 @@ export default function VideoCard({
   return (
     <Flex justifyContent={"center"}>
       <Link href={`/video/${id}`}>
-        <Box bg={useColorModeValue("white", "gray.800")} maxW="sm">
+        <Box bg={useColorModeValue("gray.100", "gray.800")} maxW="sm">
           <Image src={imageUrl} alt={imageAlt} rounded="lg" />
           <Box py="2">
             <Box d="flex" alignItems="center">

@@ -24,6 +24,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import VideoPlayer from "../../components/login/videoPlay";
 import axios from "axios";
+import { Navbar } from "../../components/login/navbar";
 
 type Params = {
   params: {
@@ -61,87 +62,56 @@ export default function Video({ id }: any) {
   const router = useRouter();
 
   return (
-    // <SimpleGrid m={2} columns={[1, 2]}>
-    //   <Box
-    //     backgroundColor={"yellow"}
-    //     alignItems={"center"}
-    //     justifyContent={"center"}
-    //     width={"90vw"}
-    //   >
-    //     <VideoPlayer id={id} />
-    //   </Box>
-
-    //   <Box maxW={5} backgroundColor={"black"}>
-    //     <Text>{router.isFallback ? "loading" : "Playing Video"}</Text>
-    //   </Box>
-    // </SimpleGrid>
-
-    <Flex height={"100vh"} wrap={"wrap"}>
-      <Box
-        backgroundColor={"yellow"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        width={"60%"}
-      >
+    <Flex
+      height={"100vh"}
+      wrap={"wrap"}
+      justifyContent={"space-around"}
+      backgroundColor={useColorModeValue("gray.100", "black.100")}
+    >
+      <Navbar />
+      <Box alignItems={"center"} justifyContent={"center"} width={"60vw"}>
         <Box height={"500px"} minH={"300px"} width={"100%"}>
           <VideoPlayer height="100%" width="100%" id={id} />
         </Box>
       </Box>
 
-      <Box maxH={"100vh"} backgroundColor={"black"}>
-        <Box mx={"auto"} maxW={"lg"} py={2} px={6}>
+      <Box>
+        <Box
+          border="1px"
+          borderColor={useColorModeValue("white.100", "dark.100")}
+          rounded={"lg"}
+          mx={"auto"}
+          maxW={"lg"}
+          py={2}
+          px={6}
+        >
           <Stack align={"center"}>
-            <Heading fontSize={"4xl"} textAlign={"center"}>
+            <Heading fontSize={"3xl"} textAlign={"center"}>
               Notes
             </Heading>
-            <Text fontSize={"lg"} color={"gray.600"}>
+            <Text fontSize={"sm"} color={"gray.600"}>
               Note all of it down! 📝
             </Text>
           </Stack>
 
           <Box
             rounded={"lg"}
-            bg={useColorModeValue("white", "gray.700")}
+            bg={useColorModeValue("light.100", "dark.100")}
             boxShadow={"lg"}
             p={8}
-            maxH={"90%"}
+            pb={1}
+            maxH={"85%"}
           >
-            <Box maxH={"90%"}>
-              <Box height={"70vh"} overflowY={"auto"}>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
-                <h1>LLALA</h1>
+            <Box maxH={"85%"}>
+              <Box height={"60vh"} overflowY={"auto"}></Box>
 
-                {/* <Button minH={20}>LALAL</Button>
-                <Button minH={20}>LALAL</Button>
-                <Button minH={20}>LALAL</Button>
-                <Button minH={20}>LALAL</Button>
-                <Button minH={20}>LALAL</Button>
-                <Button minH={20}>LALAL</Button>
-                <Button minH={20}>LALAL</Button> */}
-              </Box>
-
-              <HStack mt={"auto"}>
+              <HStack py={2} mt={"auto"}>
                 <FormControl id="email" isRequired>
-                  <Input type="email" />
+                  <Input
+                    border="1px"
+                    borderColor={useColorModeValue("dark.100", "white.100")}
+                    type="email"
+                  />
                 </FormControl>
                 <Button>Note</Button>
               </HStack>

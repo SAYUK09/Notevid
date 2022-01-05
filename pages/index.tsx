@@ -1,5 +1,11 @@
 import type { NextPage } from "next";
-import { ColorModeScript, Flex, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  ColorModeScript,
+  Flex,
+  SimpleGrid,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import theme from "../config/chakraConfig";
 import { Navbar } from "../components/login/navbar";
@@ -10,7 +16,7 @@ const Home: NextPage = () => {
   const { videos } = useVideos();
 
   return (
-    <div>
+    <Box backgroundColor={useColorModeValue("gray.100", "black.100")}>
       <Head>
         <title>NoteVid</title>
       </Head>
@@ -38,7 +44,7 @@ const Home: NextPage = () => {
           );
         })}
       </SimpleGrid>
-    </div>
+    </Box>
   );
 };
 
