@@ -5,7 +5,12 @@ import ReactPlayer from "react-player";
 export default function VideoPlayer({ id }: any) {
   return (
     <Flex>
-      <ReactPlayer url={`https://www.youtube.com/watch?v=${id}`} />
+      <ReactPlayer
+        controls={true}
+        height={"85vh"}
+        width={"100%"}
+        url={`https://www.youtube.com/watch?v=${id}`}
+      />
     </Flex>
   );
 }

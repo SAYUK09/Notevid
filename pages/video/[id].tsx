@@ -69,16 +69,20 @@ export default function Video({ id }: any) {
       backgroundColor={useColorModeValue("gray.100", "black.100")}
     >
       <Navbar />
-      <Box alignItems={"center"} justifyContent={"center"} width={"60vw"}>
-        <Box height={"500px"} minH={"300px"} width={"100%"}>
-          <VideoPlayer height="100%" width="100%" id={id} />
-        </Box>
+      <Box
+        alignItems={"center"}
+        justifyContent={"center"}
+        width={"60vw"}
+        height={"100vh"}
+        mt={2}
+      >
+        <VideoPlayer height="100vh" width="100%" id={id} />
       </Box>
 
       <Box>
         <Box
-          border="1px"
-          borderColor={useColorModeValue("white.100", "dark.100")}
+          mt={2}
+          boxShadow={useColorModeValue("lg", "dark-lg")}
           rounded={"lg"}
           mx={"auto"}
           maxW={"lg"}
@@ -86,18 +90,15 @@ export default function Video({ id }: any) {
           px={6}
         >
           <Stack align={"center"}>
-            <Heading fontSize={"3xl"} textAlign={"center"}>
-              Notes
+            <Heading py={2} fontSize={"3xl"} textAlign={"center"}>
+              Notes 📝
             </Heading>
-            <Text fontSize={"sm"} color={"gray.600"}>
-              Note all of it down! 📝
-            </Text>
           </Stack>
 
           <Box
             rounded={"lg"}
             bg={useColorModeValue("light.100", "dark.100")}
-            boxShadow={"lg"}
+            // boxShadow={"md"}
             p={8}
             pb={1}
             maxH={"85%"}
