@@ -1,27 +1,10 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-
-export interface AuthUser {
-  name: string;
-  email: string;
-  photo: string;
-  uid: string;
-}
-export interface IAuth {
-  user: AuthUser;
-  setUser: Dispatch<SetStateAction<AuthUser>>;
-}
+import { createContext, useContext, useEffect, useState } from "react";
+import { IAuth, IAuthUser } from "../types";
 
 export const AuthContext = createContext({} as IAuth);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<AuthUser>({
+  const [user, setUser] = useState<IAuthUser>({
     name: "",
     email: "",
     photo: "",

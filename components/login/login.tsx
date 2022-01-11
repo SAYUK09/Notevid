@@ -14,8 +14,9 @@ import {
 import Styles from "../../styles/loginPage.module.css";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
-import { useAuth, AuthUser } from "../../context/authContext";
+import { useAuth } from "../../context/authContext";
 import axios from "axios";
+import { IAuthUser } from "../../types";
 
 export const Login = () => {
   const { user, setUser } = useAuth();
@@ -40,7 +41,7 @@ export const Login = () => {
       });
   }
 
-  async function registerUser(userData: AuthUser) {
+  async function registerUser(userData: IAuthUser) {
     const data = await axios.post("/api/user", { details: userData });
     localStorage.setItem("auth", JSON.stringify(userData));
     setUser(userData);
@@ -65,13 +66,13 @@ export const Login = () => {
         minH={"100vh"}
         align={"center"}
         justify={"center"}
-        bg={useColorModeValue("gray.200", "#191A22")}
+        bg={useColorModeValue("gray.200", "dark.100")}
       >
         <Stack
           spacing={4}
           w={"full"}
           maxW={"md"}
-          bg={useColorModeValue("#F5F8FA", "gray.700")}
+          bg={useColorModeValue("light.100", "gray.700")}
           rounded={"xl"}
           boxShadow={"lg"}
           p={6}
@@ -79,7 +80,7 @@ export const Login = () => {
         >
           <Heading
             lineHeight={1.1}
-            color={useColorModeValue("gray.800", "#F5F8FA")}
+            color={useColorModeValue("gray.800", "light.100")}
             fontSize={{ base: "2xl", md: "3xl" }}
           >
             {user.uid ? "Logout" : "Sign in with Google "}
@@ -95,9 +96,9 @@ export const Login = () => {
             {user.uid.length ? (
               <Button
                 onClick={logout}
-                bg={"#FFC831"}
+                bg={"brand.100"}
                 //eslint-disable-next-line
-                color="#191A22"
+                color="dark.100"
                 _hover={{
                   bg: "#1F73FB",
                   color: "white",
@@ -108,9 +109,9 @@ export const Login = () => {
             ) : (
               <Button
                 onClick={login}
-                bg={"#FFC831"}
+                bg={"brand.100"}
                 //eslint-disable-next-line
-                color="#191A22"
+                color="dark.100"
                 _hover={{
                   bg: "#1F73FB",
                   color: "white",
