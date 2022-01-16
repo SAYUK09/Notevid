@@ -1,3 +1,4 @@
+import exp from "constants";
 import { Dispatch, SetStateAction } from "react";
 
 export interface IVideoArr {
@@ -23,6 +24,14 @@ export interface IVideoCard {
 }
 
 export interface IAuthUser {
+  name: string;
+  email: string;
+  photo: string;
+  uid: string;
+  _id: string;
+}
+
+export interface IRegisterUser {
   name: string;
   email: string;
   photo: string;
