@@ -20,8 +20,8 @@ const Home: NextPage = () => {
       <Head>
         <title>NoteVid</title>
       </Head>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
 
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Navbar />
 
       <SimpleGrid

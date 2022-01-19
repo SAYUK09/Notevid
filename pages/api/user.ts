@@ -36,7 +36,7 @@ export default async function handler(
       });
 
       if (userAlreadyExists) {
-        return res.status(200).json({ success: true, data: "Registered" });
+        return res.status(200).json({ success: true, data: userAlreadyExists });
       } else {
         const user = await User.create(req.body);
 

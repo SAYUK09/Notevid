@@ -26,7 +26,7 @@ export const Login = () => {
 
   function login() {
     const googleProvider = new GoogleAuthProvider();
-
+    console.log("enter");
     signInWithPopup(auth, googleProvider)
       .then(({ user: { displayName, email, photoURL, uid } }) => {
         const userData = {
@@ -49,6 +49,10 @@ export const Login = () => {
     const {
       data: { data },
     } = await axios.post("/api/user", userData);
+
+    // const wth = await axios.post("/api/user", userData);
+
+    // console.log(wth, "dataS");
 
     const { name, email, uid, photo, _id } = data;
 
