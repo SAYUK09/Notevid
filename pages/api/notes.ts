@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../api-lib/mongodb";
 import Note from "../../api-lib/models/notes.model";
-import { extend } from "lodash";
 
 export default async function handler(
   req: NextApiRequest,

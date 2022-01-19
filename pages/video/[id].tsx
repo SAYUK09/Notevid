@@ -1,23 +1,12 @@
 import {
-  Text,
-  SimpleGrid,
   Box,
-  Grid,
-  GridItem,
-  Wrap,
-  WrapItem,
   Button,
   FormControl,
-  FormLabel,
   Heading,
   HStack,
   Input,
-  InputGroup,
-  InputRightElement,
-  Link,
   Stack,
   useColorModeValue,
-  VStack,
   Flex,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -48,7 +37,11 @@ export async function getStaticPaths() {
     `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=javscript%2C%20podcast%2C%20startup&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}&regionCode=in`
   );
 
-  const paths = items.map((video: any) => {
+  const videos = items.filter((video: any) => {
+    return video.id.videoId != undefined;
+  });
+
+  const paths = videos.map((video: any) => {
     return { params: { id: video.id.videoId } };
   });
 
