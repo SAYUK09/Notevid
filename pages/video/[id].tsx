@@ -8,12 +8,14 @@ import {
   Stack,
   useColorModeValue,
   Flex,
+  Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import VideoPlayer from "../../components/login/videoPlay";
 import axios from "axios";
 import { Navbar } from "../../components/login/navbar";
+import { useAuth } from "../../context/authContext";
 
 type Params = {
   params: {
@@ -53,6 +55,50 @@ export async function getStaticPaths() {
 
 export default function Video({ id }: any) {
   const router = useRouter();
+  const { user } = useAuth();
+  const [notes, setNotes] = useState<any>([]);
+
+  const ref = useRef<any>();
+
+  useEffect(() => {
+    (async () => {
+      const {
+        data: { data },
+      } = await axios.get("/api/notes", {
+        params: {
+          userId: user._id,
+          videoId: id,
+        },
+      });
+
+      setNotes(data);
+    })();
+  }, [user]);
+
+  function getTime(time: number) {
+    let hour, min, sec;
+    time = time;
+    hour = time / 3600;
+    time = time % 3600;
+    min = time / 60;
+    time = time % 60;
+    sec = time;
+
+    return `${Math.round(hour)}:${Math.round(min)}:${Math.round(sec)}`;
+  }
+
+  async function addNote() {
+    try {
+      const response = await axios.post("/api/notes", {
+        userId: user._id,
+        videoId: id,
+        note: "brala",
+        timestamp: Math.round(ref.current.getCurrentTime()),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <Flex
@@ -69,7 +115,7 @@ export default function Video({ id }: any) {
         height={"100vh"}
         mt={2}
       >
-        <VideoPlayer height="100vh" width="100%" id={id} />
+        <VideoPlayer height="100vh" width="100%" id={id} reference={ref} />
       </Box>
 
       <Box>
@@ -81,6 +127,7 @@ export default function Video({ id }: any) {
           maxW={"lg"}
           py={2}
           px={6}
+          maxH={"90vh"}
         >
           <Stack align={"center"}>
             <Heading py={2} fontSize={"3xl"} textAlign={"center"}>
@@ -94,12 +141,37 @@ export default function Video({ id }: any) {
             // boxShadow={"md"}
             p={8}
             pb={1}
-            maxH={"85%"}
+            height={"75vh"}
+            maxH={"100%"}
           >
-            <Box maxH={"85%"}>
-              <Box height={"60vh"} overflowY={"auto"}></Box>
+            <Box>
+              <Box
+                bgColor={"green"}
+                alignItems={"center"}
+                overflowY={"auto"}
+              ></Box>
+              <Box display={"flex"} flexDirection={"column"} height={"60vh"}>
+                {notes.map((item: any, index: any) => {
+                  return (
+                    <Box
+                      px={2}
+                      display={"flex"}
+                      justifyContent={"space-between"}
+                      key={index}
+                    >
+                      <Text>{item.notes.note}</Text>
+                      <Text>{getTime(item.notes.timestamp)}</Text>
+                    </Box>
+                  );
+                })}
+              </Box>
 
-              <HStack py={2} mt={"auto"}>
+              <HStack
+                py={2}
+                mt={"auto"}
+                display={"flex"}
+                alignSelf={"flex-end"}
+              >
                 <FormControl id="email" isRequired>
                   <Input
                     border="1px"
@@ -107,7 +179,8 @@ export default function Video({ id }: any) {
                     type="email"
                   />
                 </FormControl>
-                <Button>Note</Button>
+
+                <Button onClick={addNote}>Note</Button>
               </HStack>
             </Box>
           </Box>

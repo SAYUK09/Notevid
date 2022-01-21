@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { Decimal128 } from "mongodb";
-import { timeStamp } from "console";
 
 const NotesSchema = new mongoose.Schema(
   {
@@ -10,16 +9,15 @@ const NotesSchema = new mongoose.Schema(
       required: true,
     },
 
-    notes: [
-      {
-        video: String,
-        note: String,
-        created_at: {
-          type: Date,
-          default: Date.now,
-        },
+    notes: {
+      video: String,
+      note: String,
+      timestamp: Number,
+      created_at: {
+        type: Date,
+        default: Date.now,
       },
-    ],
+    },
 
     created_at: {
       type: Date,

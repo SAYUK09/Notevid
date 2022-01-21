@@ -22,19 +22,31 @@ export default async function handler(
 
   async function getNotes(req: NextApiRequest, res: NextApiResponse) {
     try {
+      const {
+        query: { userId, videoId },
+      } = req;
+
+      console.log(userId, videoId);
+
       const notes = await Note.find({
-        user: "61b868f36902dae672484bd0",
-        "notes.video": "brala",
+        user: userId,
+        "notes.video": videoId,
       });
       res.status(200).json({ success: true, data: notes });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function addNotes(req: NextApiRequest, res: NextApiResponse) {
     try {
       const note = await Note.create({
-        user: "61b89dbc3745f474c03b3d5c",
-        notes: [{ video: "brala", note: "short String" }],
+        user: req.body.userId,
+        notes: {
+          video: req.body.videoId,
+          note: req.body.note,
+          timestamp: req.body.timestamp,
+        },
       });
 
       res.status(201).json({ success: true, data: note });
