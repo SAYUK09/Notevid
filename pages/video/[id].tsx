@@ -57,6 +57,7 @@ export default function Video({ id }: any) {
   const router = useRouter();
   const { user } = useAuth();
   const [notes, setNotes] = useState<any>([]);
+  const noteInput = useRef<any>();
 
   const ref = useRef<any>();
 
@@ -92,9 +93,13 @@ export default function Video({ id }: any) {
       const response = await axios.post("/api/notes", {
         userId: user._id,
         videoId: id,
-        note: "brala",
+        note: noteInput.current.value,
         timestamp: Math.round(ref.current.getCurrentTime()),
       });
+
+      if (response.status == 201) {
+        noteInput.current.value = "";
+      }
     } catch (err) {
       console.log(err);
     }
@@ -174,6 +179,7 @@ export default function Video({ id }: any) {
               >
                 <FormControl id="email" isRequired>
                   <Input
+                    ref={noteInput}
                     border="1px"
                     borderColor={useColorModeValue("dark.100", "white.100")}
                     type="email"

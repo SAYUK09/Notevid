@@ -26,8 +26,6 @@ export default async function handler(
         query: { userId, videoId },
       } = req;
 
-      console.log(userId, videoId);
-
       const notes = await Note.find({
         user: userId,
         "notes.video": videoId,
