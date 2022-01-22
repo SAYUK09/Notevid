@@ -11,11 +11,19 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  ComponentProps,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import VideoPlayer from "../../components/login/videoPlay";
 import axios from "axios";
 import { Navbar } from "../../components/login/navbar";
 import { useAuth } from "../../context/authContext";
+import { INotes, INotesData } from "../../types";
+import { ParsedUrlQuery } from "querystring";
 
 type Params = {
   params: {
@@ -39,12 +47,14 @@ export async function getStaticPaths() {
     `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=javscript%2C%20podcast%2C%20startup&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}&regionCode=in`
   );
 
-  const videos = items.filter((video: any) => {
-    return video.id.videoId != undefined;
-  });
+  const videos = items.filter((video: any) => video.id.videoId != undefined);
 
   const paths = videos.map((video: any) => {
-    return { params: { id: video.id.videoId } };
+    return {
+      params: {
+        id: video.id.videoId,
+      },
+    };
   });
 
   return {
@@ -53,26 +63,30 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Video({ id }: any) {
+export default function Video({ id }: ParsedUrlQuery) {
   const router = useRouter();
   const { user } = useAuth();
-  const [notes, setNotes] = useState<any>([]);
-  const noteInput = useRef<any>();
+  const [notes, setNotes] = useState<INotes[] | []>([]);
+  const noteInput = useRef<HTMLInputElement>(null);
 
   const ref = useRef<any>();
 
   useEffect(() => {
     (async () => {
-      const {
-        data: { data },
-      } = await axios.get("/api/notes", {
-        params: {
-          userId: user._id,
-          videoId: id,
-        },
-      });
+      if (user._id.length) {
+        const {
+          data: { data },
+        } = await axios.get("/api/notes", {
+          params: {
+            userId: user?._id,
+            videoId: id,
+          },
+        });
 
-      setNotes(data);
+        const notes = data.map((item: INotesData) => item.notes);
+
+        setNotes(notes);
+      }
     })();
   }, [user]);
 
@@ -93,12 +107,14 @@ export default function Video({ id }: any) {
       const response = await axios.post("/api/notes", {
         userId: user._id,
         videoId: id,
-        note: noteInput.current.value,
+        note: noteInput?.current?.value,
         timestamp: Math.round(ref.current.getCurrentTime()),
       });
 
       if (response.status == 201) {
-        noteInput.current.value = "";
+        if (noteInput.current) {
+          noteInput.current.value = "";
+        }
       }
     } catch (err) {
       console.log(err);
@@ -156,7 +172,7 @@ export default function Video({ id }: any) {
                 overflowY={"auto"}
               ></Box>
               <Box display={"flex"} flexDirection={"column"} height={"60vh"}>
-                {notes.map((item: any, index: any) => {
+                {notes.map((item: INotes, index: number) => {
                   return (
                     <Box
                       px={2}
@@ -164,8 +180,8 @@ export default function Video({ id }: any) {
                       justifyContent={"space-between"}
                       key={index}
                     >
-                      <Text>{item.notes.note}</Text>
-                      <Text>{getTime(item.notes.timestamp)}</Text>
+                      <Text>{item.note}</Text>
+                      <Text>{getTime(item.timestamp)}</Text>
                     </Box>
                   );
                 })}
@@ -182,7 +198,7 @@ export default function Video({ id }: any) {
                     ref={noteInput}
                     border="1px"
                     borderColor={useColorModeValue("dark.100", "white.100")}
-                    type="email"
+                    type="text"
                   />
                 </FormControl>
 
