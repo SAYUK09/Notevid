@@ -187,9 +187,7 @@ export default function Video({ id }: ParsedUrlQuery) {
                       my={1}
                       width={"100%"}
                     >
-                      <Text noOfLines={1} isTruncated>
-                        {item.note}
-                      </Text>
+                      <Text>{item.note}</Text>
                       <Text
                         _hover={{ color: "blue.100" }}
                         fontWeight={"medium"}
