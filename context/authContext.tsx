@@ -9,6 +9,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     email: "",
     photo: "",
     uid: "",
+    _id: "",
   });
 
   useEffect((): void => {

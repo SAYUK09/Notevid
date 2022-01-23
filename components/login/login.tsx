@@ -16,14 +16,17 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
 import { useAuth } from "../../context/authContext";
 import axios from "axios";
-import { IAuthUser } from "../../types";
+import { IAuthUser, IRegisterUser } from "../../types";
+import { animateVisualElement } from "framer-motion";
 
 export const Login = () => {
   const { user, setUser } = useAuth();
 
+  console.log(user);
+
   function login() {
     const googleProvider = new GoogleAuthProvider();
-
+    console.log("enter");
     signInWithPopup(auth, googleProvider)
       .then(({ user: { displayName, email, photoURL, uid } }) => {
         const userData = {
@@ -32,7 +35,7 @@ export const Login = () => {
           photo: String(photoURL),
           uid: String(uid),
         };
-
+        console.log(userData, "uuuu");
         registerUser(userData);
       })
       .catch((error) => {
@@ -41,10 +44,25 @@ export const Login = () => {
       });
   }
 
-  async function registerUser(userData: IAuthUser) {
-    const data = await axios.post("/api/user", { details: userData });
-    localStorage.setItem("auth", JSON.stringify(userData));
-    setUser(userData);
+  async function registerUser(userData: IRegisterUser) {
+    console.log(userData, "userData");
+    const {
+      data: { data },
+    } = await axios.post("/api/user", userData);
+
+    // const wth = await axios.post("/api/user", userData);
+
+    // console.log(wth, "dataS");
+
+    const { name, email, uid, photo, _id } = data;
+
+    console.log(name, email, uid, photo, _id, "popop");
+
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({ name, email, uid, photo, _id })
+    );
+    setUser({ name, email, uid, photo, _id });
     console.log(data);
   }
 
@@ -55,6 +73,7 @@ export const Login = () => {
       email: "",
       photo: "",
       uid: "",
+      _id: "",
     });
 
     console.log("logouted");

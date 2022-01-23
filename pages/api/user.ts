@@ -32,11 +32,11 @@ export default async function handler(
   async function addUser(req: NextApiRequest, res: NextApiResponse) {
     try {
       const userAlreadyExists = await User.findOne({
-        "details.uid": req.body.details.uid,
+        uid: req.body.uid,
       });
 
       if (userAlreadyExists) {
-        return res.status(200).json({ success: true, data: "Registered" });
+        return res.status(200).json({ success: true, data: userAlreadyExists });
       } else {
         const user = await User.create(req.body);
 

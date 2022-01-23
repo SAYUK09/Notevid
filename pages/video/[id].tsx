@@ -1,30 +1,23 @@
 import {
-  Text,
-  SimpleGrid,
   Box,
-  Grid,
-  GridItem,
-  Wrap,
-  WrapItem,
   Button,
   FormControl,
-  FormLabel,
   Heading,
   HStack,
   Input,
-  InputGroup,
-  InputRightElement,
-  Link,
   Stack,
   useColorModeValue,
-  VStack,
   Flex,
+  Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import VideoPlayer from "../../components/login/videoPlay";
 import axios from "axios";
 import { Navbar } from "../../components/login/navbar";
+import { useAuth } from "../../context/authContext";
+import { INotes, INotesData } from "../../types";
+import { ParsedUrlQuery } from "querystring";
 
 type Params = {
   params: {
@@ -48,8 +41,14 @@ export async function getStaticPaths() {
     `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=javscript%2C%20podcast%2C%20startup&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}&regionCode=in`
   );
 
-  const paths = items.map((video: any) => {
-    return { params: { id: video.id.videoId } };
+  const videos = items.filter((video: any) => video.id.videoId != undefined);
+
+  const paths = videos.map((video: any) => {
+    return {
+      params: {
+        id: video.id.videoId,
+      },
+    };
   });
 
   return {
@@ -58,8 +57,75 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Video({ id }: any) {
+export default function Video({ id }: ParsedUrlQuery) {
   const router = useRouter();
+  const { user } = useAuth();
+  const [notes, setNotes] = useState<INotes[] | []>([]);
+  const noteInput = useRef<HTMLInputElement>(null);
+
+  const ref = useRef<any>();
+
+  async function fetchNotes() {
+    if (user._id.length) {
+      const {
+        data: { data },
+      } = await axios.get("/api/notes", {
+        params: {
+          userId: user?._id,
+          videoId: id,
+        },
+      });
+
+      const notes = data.map((item: INotesData) => item.notes);
+
+      setNotes(notes);
+    }
+  }
+
+  useEffect(() => {
+    fetchNotes();
+  }, [user]);
+
+  function getTime(time: number) {
+    let hour, min, sec;
+    time = time;
+    hour = time / 3600;
+    time = time % 3600;
+    min = time / 60;
+    time = time % 60;
+    sec = time;
+
+    return `${Math.round(hour)}:${Math.round(min)}:${Math.round(sec)}`;
+  }
+
+  function seekTo(time: number) {
+    ref.current.seekTo(time);
+  }
+  async function addNote(e: any) {
+    if (
+      e.key === "Enter" ||
+      (e.type === "click" && noteInput.current?.value.length)
+    ) {
+      try {
+        const response = await axios.post("/api/notes", {
+          userId: user._id,
+          videoId: id,
+          note: noteInput?.current?.value,
+          timestamp: Math.round(ref.current.getCurrentTime()),
+        });
+
+        if (response.status == 201) {
+          if (noteInput.current) {
+            noteInput.current.value = "";
+
+            fetchNotes();
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   return (
     <Flex
@@ -76,7 +142,7 @@ export default function Video({ id }: any) {
         height={"100vh"}
         mt={2}
       >
-        <VideoPlayer height="100vh" width="100%" id={id} />
+        <VideoPlayer height="100vh" width="100%" id={id} reference={ref} />
       </Box>
 
       <Box>
@@ -85,9 +151,10 @@ export default function Video({ id }: any) {
           boxShadow={useColorModeValue("lg", "dark-lg")}
           rounded={"lg"}
           mx={"auto"}
-          maxW={"lg"}
+          minW={"30vw"}
           py={2}
           px={6}
+          maxH={"90vh"}
         >
           <Stack align={"center"}>
             <Heading py={2} fontSize={"3xl"} textAlign={"center"}>
@@ -101,20 +168,60 @@ export default function Video({ id }: any) {
             // boxShadow={"md"}
             p={8}
             pb={1}
-            maxH={"85%"}
+            height={"75vh"}
+            maxH={"100%"}
           >
-            <Box maxH={"85%"}>
-              <Box height={"60vh"} overflowY={"auto"}></Box>
+            <Box>
+              <Box
+                bgColor={"green"}
+                alignItems={"center"}
+                overflowY={"auto"}
+              ></Box>
+              <Box display={"flex"} flexDirection={"column"} height={"60vh"}>
+                {notes.map((item: INotes, index: number) => {
+                  return (
+                    <Box
+                      display={"flex"}
+                      justifyContent={"space-between"}
+                      key={index}
+                      my={1}
+                      width={"100%"}
+                    >
+                      <Text>{item.note}</Text>
+                      <Text
+                        _hover={{ color: "blue.100" }}
+                        fontWeight={"medium"}
+                        cursor={"pointer"}
+                        onClick={() => {
+                          seekTo(item.timestamp);
+                        }}
+                      >
+                        {getTime(item.timestamp)}
+                      </Text>
+                    </Box>
+                  );
+                })}
+              </Box>
 
-              <HStack py={2} mt={"auto"}>
+              <HStack
+                py={2}
+                mt={"auto"}
+                display={"flex"}
+                alignSelf={"flex-end"}
+              >
                 <FormControl id="email" isRequired>
                   <Input
+                    ref={noteInput}
                     border="1px"
                     borderColor={useColorModeValue("dark.100", "white.100")}
-                    type="email"
+                    type="text"
+                    onKeyDown={(e) => {
+                      addNote(e);
+                    }}
                   />
                 </FormControl>
-                <Button>Note</Button>
+
+                <Button onClick={addNote}>Note</Button>
               </HStack>
             </Box>
           </Box>

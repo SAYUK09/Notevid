@@ -20,8 +20,8 @@ const Home: NextPage = () => {
       <Head>
         <title>NoteVid</title>
       </Head>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
 
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Navbar />
 
       <SimpleGrid
@@ -33,14 +33,16 @@ const Home: NextPage = () => {
       >
         {videos.map((video) => {
           return (
-            <VideoCard
-              key={video.videoId}
-              imageUrl={video.thumbnail}
-              imageAlt={video.title}
-              title={video.title}
-              channel={video.channelTitle}
-              id={video.videoId}
-            />
+            video.videoId && (
+              <VideoCard
+                key={video.videoId}
+                imageUrl={video.thumbnail}
+                imageAlt={video.title}
+                title={video.title}
+                channel={video.channelTitle}
+                id={video.videoId}
+              />
+            )
           );
         })}
       </SimpleGrid>
