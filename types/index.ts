@@ -57,3 +57,8 @@ export interface INotes {
   timestamp: number;
   created_at: string;
 }
+
+export interface sliceState {
+  notesArr: INotes[];
+  status: string;
+}
