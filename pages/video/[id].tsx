@@ -11,13 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, {
-  ComponentProps,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import VideoPlayer from "../../components/login/videoPlay";
 import axios from "axios";
 import { Navbar } from "../../components/login/navbar";
@@ -71,23 +65,25 @@ export default function Video({ id }: ParsedUrlQuery) {
 
   const ref = useRef<any>();
 
+  async function fetchNotes() {
+    if (user._id.length) {
+      const {
+        data: { data },
+      } = await axios.get("/api/notes", {
+        params: {
+          userId: user?._id,
+          videoId: id,
+        },
+      });
+
+      const notes = data.map((item: INotesData) => item.notes);
+
+      setNotes(notes);
+    }
+  }
+
   useEffect(() => {
-    (async () => {
-      if (user._id.length) {
-        const {
-          data: { data },
-        } = await axios.get("/api/notes", {
-          params: {
-            userId: user?._id,
-            videoId: id,
-          },
-        });
-
-        const notes = data.map((item: INotesData) => item.notes);
-
-        setNotes(notes);
-      }
-    })();
+    fetchNotes();
   }, [user]);
 
   function getTime(time: number) {
@@ -102,22 +98,32 @@ export default function Video({ id }: ParsedUrlQuery) {
     return `${Math.round(hour)}:${Math.round(min)}:${Math.round(sec)}`;
   }
 
-  async function addNote() {
-    try {
-      const response = await axios.post("/api/notes", {
-        userId: user._id,
-        videoId: id,
-        note: noteInput?.current?.value,
-        timestamp: Math.round(ref.current.getCurrentTime()),
-      });
+  function seekTo(time: number) {
+    ref.current.seekTo(time);
+  }
+  async function addNote(e: any) {
+    if (
+      e.key === "Enter" ||
+      (e.type === "click" && noteInput.current?.value.length)
+    ) {
+      try {
+        const response = await axios.post("/api/notes", {
+          userId: user._id,
+          videoId: id,
+          note: noteInput?.current?.value,
+          timestamp: Math.round(ref.current.getCurrentTime()),
+        });
 
-      if (response.status == 201) {
-        if (noteInput.current) {
-          noteInput.current.value = "";
+        if (response.status == 201) {
+          if (noteInput.current) {
+            noteInput.current.value = "";
+
+            fetchNotes();
+          }
         }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
   }
 
@@ -145,7 +151,7 @@ export default function Video({ id }: ParsedUrlQuery) {
           boxShadow={useColorModeValue("lg", "dark-lg")}
           rounded={"lg"}
           mx={"auto"}
-          maxW={"lg"}
+          minW={"30vw"}
           py={2}
           px={6}
           maxH={"90vh"}
@@ -175,13 +181,25 @@ export default function Video({ id }: ParsedUrlQuery) {
                 {notes.map((item: INotes, index: number) => {
                   return (
                     <Box
-                      px={2}
                       display={"flex"}
                       justifyContent={"space-between"}
                       key={index}
+                      my={1}
+                      width={"100%"}
                     >
-                      <Text>{item.note}</Text>
-                      <Text>{getTime(item.timestamp)}</Text>
+                      <Text noOfLines={1} isTruncated>
+                        {item.note}
+                      </Text>
+                      <Text
+                        _hover={{ color: "blue.100" }}
+                        fontWeight={"medium"}
+                        cursor={"pointer"}
+                        onClick={() => {
+                          seekTo(item.timestamp);
+                        }}
+                      >
+                        {getTime(item.timestamp)}
+                      </Text>
                     </Box>
                   );
                 })}
@@ -199,6 +217,9 @@ export default function Video({ id }: ParsedUrlQuery) {
                     border="1px"
                     borderColor={useColorModeValue("dark.100", "white.100")}
                     type="text"
+                    onKeyDown={(e) => {
+                      addNote(e);
+                    }}
                   />
                 </FormControl>
 
