@@ -58,7 +58,7 @@ export interface INotes {
   created_at: string;
 }
 
-export interface sliceState {
+export interface ISliceState {
   notesArr: INotes[];
   status: string;
 }

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { INotes, INotesData, sliceState } from "../types";
+import { INotesData, ISliceState } from "../types";
 
 export const getNotes = createAsyncThunk(
   "notes/getNotes",
@@ -11,8 +11,8 @@ export const getNotes = createAsyncThunk(
       data: { data },
     } = await axios.get("/api/notes", {
       params: {
-        userId: userId,
-        videoId: videoId,
+        userId,
+        videoId,
       },
     });
 
@@ -20,7 +20,7 @@ export const getNotes = createAsyncThunk(
   }
 );
 
-const initialState: sliceState = {
+const initialState: ISliceState = {
   notesArr: [],
   status: "idle",
 };
@@ -30,13 +30,10 @@ export const notesSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getNotes.pending, (state, action) => {
-      console.log("pending");
-    }),
-      builder.addCase(getNotes.fulfilled, (state, action) => {
-        const notes = action.payload.map((item: INotesData) => item.notes);
-        state.notesArr = notes;
-      });
+    builder.addCase(getNotes.fulfilled, (state, action) => {
+      const notes = action.payload.map((item: INotesData) => item.notes);
+      state.notesArr = notes;
+    });
   },
 });
 
