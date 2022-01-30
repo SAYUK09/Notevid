@@ -43,15 +43,15 @@ export interface IAuth {
   setUser: Dispatch<SetStateAction<IAuthUser>>;
 }
 
-export interface INotesData {
+export interface INoteData {
   created_at: string;
-  notes: INotes;
+  notes: INote;
   user: string;
   _v: number;
   _id: string;
 }
 
-export interface INotes {
+export interface INote {
   video: string;
   note: string;
   timestamp: number;
@@ -59,6 +59,6 @@ export interface INotes {
 }
 
 export interface ISliceState {
-  notesArr: INotes[];
-  status: string;
+  notesArr: INote[];
+  status: "Idle" | "Pending" | "Complete";
 }

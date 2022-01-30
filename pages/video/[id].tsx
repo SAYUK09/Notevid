@@ -16,7 +16,7 @@ import VideoPlayer from "../../components/login/videoPlay";
 import axios from "axios";
 import { Navbar } from "../../components/login/navbar";
 import { useAuth } from "../../context/authContext";
-import { INotes } from "../../types";
+import { INote } from "../../types";
 import { ParsedUrlQuery } from "querystring";
 import { RootState } from "../../redux/store";
 import { useSelector, useDispatch } from "react-redux";
@@ -63,7 +63,7 @@ export async function getStaticPaths() {
 export default function Video({ id }: ParsedUrlQuery) {
   const router = useRouter();
   const { user } = useAuth();
-  const [notes, setNotes] = useState<INotes[] | []>([]);
+  const [notes, setNotes] = useState<INote[] | []>([]);
   const noteInput = useRef<HTMLInputElement>(null);
   const noteState = useSelector((state: RootState) => state.notes.notesArr);
   const dispatch = useDispatch();
@@ -167,7 +167,7 @@ export default function Video({ id }: ParsedUrlQuery) {
                 overflowY={"auto"}
               ></Box>
               <Box display={"flex"} flexDirection={"column"} height={"60vh"}>
-                {noteState.map((item: INotes, index: number) => {
+                {noteState.map((item: INote, index: number) => {
                   return (
                     <Box
                       display={"flex"}

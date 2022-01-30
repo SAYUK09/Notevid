@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { INotesData, ISliceState } from "../types";
+import { INoteData, ISliceState } from "../types";
 
 export const getNotes = createAsyncThunk(
   "notes/getNotes",
@@ -22,7 +22,7 @@ export const getNotes = createAsyncThunk(
 
 const initialState: ISliceState = {
   notesArr: [],
-  status: "idle",
+  status: "Idle",
 };
 
 export const notesSlice = createSlice({
@@ -31,7 +31,7 @@ export const notesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getNotes.fulfilled, (state, action) => {
-      const notes = action.payload.map((item: INotesData) => item.notes);
+      const notes = action.payload.map((item: INoteData) => item.notes);
       state.notesArr = notes;
     });
   },
