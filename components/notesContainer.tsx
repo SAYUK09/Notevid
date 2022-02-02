@@ -8,10 +8,13 @@ import {
   Text,
   Stack,
   Heading,
+  IconButton,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useRef } from "react";
+import { BsDownload } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
+import { useReactToPrint } from "react-to-print";
 import { useAuth } from "../context/authContext";
 import { getNotes } from "../redux/notesSlice";
 import { RootState } from "../redux/store";
@@ -24,6 +27,22 @@ export default function NotesContainer({ id, videoRef }: any) {
   const { user } = useAuth();
 
   const componentRef = useRef<any>(null);
+
+  const printStyle = `
+  @media print {
+    html, body {
+   color:black !important;
+      -webkit-print-color-adjust: exact;
+    }
+  }
+  
+  `;
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Notevid",
+    pageStyle: printStyle,
+  });
 
   function getTime(time: number) {
     let hour, min, sec;
@@ -84,17 +103,22 @@ export default function NotesContainer({ id, videoRef }: any) {
         </Heading>
       </Stack>
       <Box
-        ref={componentRef}
         rounded={"lg"}
         bg={useColorModeValue("light.100", "dark.100")}
-        p={8}
+        p={4}
         pb={1}
         height={"75vh"}
         maxH={"100%"}
       >
         <Box>
-          <Box bgColor={"green"} alignItems={"center"} overflowY={"auto"}></Box>
-          <Box display={"flex"} flexDirection={"column"} height={"60vh"}>
+          <Box alignItems={"center"} overflowY={"auto"}></Box>
+          <Box
+            ref={componentRef}
+            display={"flex"}
+            flexDirection={"column"}
+            height={"60vh"}
+            overflowY={"auto"}
+          >
             {noteState.map((item: INote, index: number) => {
               return (
                 <Box
@@ -132,8 +156,12 @@ export default function NotesContainer({ id, videoRef }: any) {
                 }}
               />
             </FormControl>
-
             <Button onClick={addNote}>Note</Button>
+            <IconButton
+              onClick={handlePrint}
+              aria-label="download button"
+              icon={<BsDownload />}
+            />
           </HStack>
         </Box>
       </Box>

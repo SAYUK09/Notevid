@@ -78,7 +78,7 @@ export default function Video({ id }: ParsedUrlQuery) {
         <VideoPlayer height="100vh" width="100%" id={id} reference={videoRef} />
       </Box>
 
-      <Box>
+      <Box minW={"30vw"}>
         <NotesContainer id={id} videoRef={videoRef} />
       </Box>
     </Flex>
