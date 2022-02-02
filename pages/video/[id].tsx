@@ -13,6 +13,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import VideoPlayer from "../../components/login/videoPlay";
+import { useReactToPrint } from "react-to-print";
 import axios from "axios";
 import { Navbar } from "../../components/login/navbar";
 import { useAuth } from "../../context/authContext";
@@ -63,16 +64,22 @@ export async function getStaticPaths() {
 export default function Video({ id }: ParsedUrlQuery) {
   const router = useRouter();
   const { user } = useAuth();
-  const [notes, setNotes] = useState<INote[] | []>([]);
   const noteInput = useRef<HTMLInputElement>(null);
   const noteState = useSelector((state: RootState) => state.notes.notesArr);
   const dispatch = useDispatch();
+
+  const componentRef = useRef<any>(null);
 
   const ref = useRef<any>();
 
   useEffect(() => {
     dispatch(getNotes({ userId: user?._id, videoId: id }));
   }, [user]);
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Notevid",
+  });
 
   function getTime(time: number) {
     let hour, min, sec;
@@ -123,6 +130,7 @@ export default function Video({ id }: ParsedUrlQuery) {
       backgroundColor={useColorModeValue("gray.100", "black.100")}
     >
       <Navbar />
+      <Button onClick={handlePrint}>Print</Button>
 
       <Box
         alignItems={"center"}
@@ -152,9 +160,9 @@ export default function Video({ id }: ParsedUrlQuery) {
           </Stack>
 
           <Box
+            ref={componentRef}
             rounded={"lg"}
             bg={useColorModeValue("light.100", "dark.100")}
-            // boxShadow={"md"}
             p={8}
             pb={1}
             height={"75vh"}
