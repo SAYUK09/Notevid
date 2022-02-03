@@ -8,7 +8,7 @@ import {
   Image,
   Link,
 } from "@chakra-ui/react";
-import { IVideoCard } from "../../types";
+import { IVideoCard } from "../types";
 import React from "react";
 
 export default function VideoCard({

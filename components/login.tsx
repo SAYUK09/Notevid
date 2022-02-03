@@ -13,10 +13,10 @@ import {
 } from "@chakra-ui/react";
 import Styles from "../../styles/loginPage.module.css";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../../config/firebaseConfig";
-import { useAuth } from "../../context/authContext";
+import { auth } from "../config/firebaseConfig";
+import { useAuth } from "../context/authContext";
 import axios from "axios";
-import { IAuthUser, IRegisterUser } from "../../types";
+import { IAuthUser, IRegisterUser } from "../types";
 import { animateVisualElement } from "framer-motion";
 
 export const Login = () => {
