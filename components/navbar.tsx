@@ -21,7 +21,7 @@ import { FaBell, FaClipboardCheck } from "react-icons/fa";
 import { RiMenu4Fill } from "react-icons/ri";
 import { BsFillSunFill, BsMoonFill, BsSearch } from "react-icons/bs";
 import { useRef } from "react";
-import Logo from "../../public/svgs/logo.svg";
+import Logo from "../public/svgs/logo.svg";
 import { MdHome } from "react-icons/md";
 import { HiCollection } from "react-icons/hi";
 

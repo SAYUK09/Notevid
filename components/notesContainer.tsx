@@ -60,29 +60,24 @@ export default function NotesContainer({ id, videoRef }: any) {
     videoRef.current.seekTo(time);
   }
 
-  async function addNote(e: any) {
-    if (
-      e.key === "Enter" ||
-      (e.type === "click" && noteInput.current?.value.length)
-    ) {
-      try {
-        const response = await axios.post("/api/notes", {
-          userId: user._id,
-          videoId: id,
-          note: noteInput?.current?.value,
-          timestamp: Math.round(videoRef.current.getCurrentTime()),
-        });
+  async function addNote() {
+    try {
+      const response = await axios.post("/api/notes", {
+        userId: user._id,
+        videoId: id,
+        note: noteInput?.current?.value,
+        timestamp: Math.round(videoRef.current.getCurrentTime()),
+      });
 
-        if (response.status == 201) {
-          if (noteInput.current) {
-            noteInput.current.value = "";
+      if (response.status == 201) {
+        if (noteInput.current) {
+          noteInput.current.value = "";
 
-            dispatch(getNotes({ userId: user?._id, videoId: id }));
-          }
+          dispatch(getNotes({ userId: user?._id, videoId: id }));
         }
-      } catch (err) {
-        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -152,7 +147,9 @@ export default function NotesContainer({ id, videoRef }: any) {
                 borderColor={useColorModeValue("dark.100", "white.100")}
                 type="text"
                 onKeyDown={(e) => {
-                  addNote(e);
+                  if (e.key === "Enter") {
+                    addNote();
+                  }
                 }}
               />
             </FormControl>
