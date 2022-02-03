@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import TopblobSvg from "../../public/svgs/topBlob.svg";
-import BottomblobSvg from "../../public/svgs/bottomBlob.svg";
+import TopblobSvg from "../public/svgs/topBlob.svg";
+import BottomblobSvg from "../public/svgs/bottomBlob.svg";
 import {
   Button,
   Text,
@@ -11,13 +11,12 @@ import {
   useColorModeValue,
   Box,
 } from "@chakra-ui/react";
-import Styles from "../../styles/loginPage.module.css";
+import Styles from "../styles/loginPage.module.css";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 import { useAuth } from "../context/authContext";
 import axios from "axios";
-import { IAuthUser, IRegisterUser } from "../types";
-import { animateVisualElement } from "framer-motion";
+import { IRegisterUser } from "../types";
 
 export const Login = () => {
   const { user, setUser } = useAuth();

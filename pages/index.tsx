@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import {
   Box,
   ColorModeScript,
-  Flex,
   SimpleGrid,
   useColorModeValue,
 } from "@chakra-ui/react";
