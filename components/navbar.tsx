@@ -7,13 +7,12 @@ import {
   Flex,
   Icon,
   Input,
-  InputGroup,
-  InputLeftElement,
   useColorModeValue,
   useDisclosure,
   DrawerCloseButton,
   DrawerHeader,
   IconButton,
+  Box,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,11 +23,22 @@ import { useRef } from "react";
 import Logo from "../public/svgs/logo.svg";
 import { MdHome } from "react-icons/md";
 import { HiCollection } from "react-icons/hi";
+import { useRouter } from "next/router";
 
 export function Navbar() {
+  const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef: any = useRef();
+  const inpRef = useRef<HTMLInputElement>(null);
+
+  function redirectToVideoPage() {
+    const inpText = inpRef.current?.value;
+
+    const videoId = inpText?.substring(inpText.indexOf("=") + 1);
+
+    router.push(`/video/${videoId}`);
+  }
 
   const NavItem = (props: any) => {
     const { icon, children, ...rest } = props;
@@ -126,14 +136,35 @@ export function Navbar() {
         </DrawerContent>
       </Drawer>
 
-      <InputGroup
+      <Box
+        rounded={4}
+        px={2}
+        border="1px"
         borderColor={useColorModeValue("dark.100", "light.100")}
-        w="96"
+        d={"flex"}
         display={{ base: "none", md: "flex" }}
+        alignItems={"center"}
       >
-        <InputLeftElement color="brand.100" children={<BsSearch />} />
-        <Input placeholder="Search for videos..." />
-      </InputGroup>
+        <IconButton
+          color="brand.100"
+          background={"transparent"}
+          aria-label="Search-icon"
+          icon={<BsSearch />}
+        />
+        <Input
+          variant="unstyled"
+          placeholder="Paste the video URL"
+          w="96"
+          onKeyDown={(e) => {
+            console.log("typing");
+
+            if (e.key === "Enter") {
+              redirectToVideoPage();
+            }
+          }}
+          ref={inpRef}
+        />
+      </Box>
 
       <Flex px={"2"} align="center">
         <IconButton

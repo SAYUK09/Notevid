@@ -140,7 +140,7 @@ export default function NotesContainer({ id, videoRef }: any) {
           </Box>
 
           <HStack py={2} mt={"auto"} display={"flex"} alignSelf={"flex-end"}>
-            <FormControl id="email" isRequired>
+            <FormControl isRequired>
               <Input
                 ref={noteInput}
                 border="1px"
