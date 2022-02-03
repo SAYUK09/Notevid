@@ -16,8 +16,11 @@ import VideoPlayer from "../../components/login/videoPlay";
 import axios from "axios";
 import { Navbar } from "../../components/login/navbar";
 import { useAuth } from "../../context/authContext";
-import { INotes, INotesData } from "../../types";
+import { INote } from "../../types";
 import { ParsedUrlQuery } from "querystring";
+import { RootState } from "../../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { getNotes } from "../../redux/notesSlice";
 
 type Params = {
   params: {
@@ -60,30 +63,15 @@ export async function getStaticPaths() {
 export default function Video({ id }: ParsedUrlQuery) {
   const router = useRouter();
   const { user } = useAuth();
-  const [notes, setNotes] = useState<INotes[] | []>([]);
+  const [notes, setNotes] = useState<INote[] | []>([]);
   const noteInput = useRef<HTMLInputElement>(null);
+  const noteState = useSelector((state: RootState) => state.notes.notesArr);
+  const dispatch = useDispatch();
 
   const ref = useRef<any>();
 
-  async function fetchNotes() {
-    if (user._id.length) {
-      const {
-        data: { data },
-      } = await axios.get("/api/notes", {
-        params: {
-          userId: user?._id,
-          videoId: id,
-        },
-      });
-
-      const notes = data.map((item: INotesData) => item.notes);
-
-      setNotes(notes);
-    }
-  }
-
   useEffect(() => {
-    fetchNotes();
+    dispatch(getNotes({ userId: user?._id, videoId: id }));
   }, [user]);
 
   function getTime(time: number) {
@@ -118,7 +106,7 @@ export default function Video({ id }: ParsedUrlQuery) {
           if (noteInput.current) {
             noteInput.current.value = "";
 
-            fetchNotes();
+            dispatch(getNotes({ userId: user?._id, videoId: id }));
           }
         }
       } catch (err) {
@@ -135,6 +123,7 @@ export default function Video({ id }: ParsedUrlQuery) {
       backgroundColor={useColorModeValue("gray.100", "black.100")}
     >
       <Navbar />
+
       <Box
         alignItems={"center"}
         justifyContent={"center"}
@@ -178,7 +167,7 @@ export default function Video({ id }: ParsedUrlQuery) {
                 overflowY={"auto"}
               ></Box>
               <Box display={"flex"} flexDirection={"column"} height={"60vh"}>
-                {notes.map((item: INotes, index: number) => {
+                {noteState.map((item: INote, index: number) => {
                   return (
                     <Box
                       display={"flex"}
