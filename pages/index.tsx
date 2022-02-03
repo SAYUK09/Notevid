@@ -8,8 +8,8 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import theme from "../config/chakraConfig";
-import { Navbar } from "../components/login/navbar";
-import VideoCard from "../components/login/videoCard";
+import { Navbar } from "../components/navbar";
+import VideoCard from "../components/videoCard";
 import { useVideos } from "../context/videosContext";
 
 const Home: NextPage = () => {

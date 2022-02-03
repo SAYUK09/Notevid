@@ -1,9 +1,9 @@
 import { Box, useColorModeValue, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef } from "react";
-import VideoPlayer from "../../components/login/videoPlay";
+import VideoPlayer from "../../components/videoPlay";
 import axios from "axios";
-import { Navbar } from "../../components/login/navbar";
+import { Navbar } from "../../components/navbar";
 import { useAuth } from "../../context/authContext";
 import { ParsedUrlQuery } from "querystring";
 import { useDispatch } from "react-redux";
