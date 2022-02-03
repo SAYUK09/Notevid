@@ -26,7 +26,7 @@ export default function NotesContainer({ id, videoRef }: any) {
   const noteInput = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
 
-  const componentRef = useRef<any>(null);
+  const printComponent = useRef<any>(null);
 
   const printStyle = `
   @media print {
@@ -39,7 +39,7 @@ export default function NotesContainer({ id, videoRef }: any) {
   `;
 
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
+    content: () => printComponent.current,
     documentTitle: "Notevid",
     pageStyle: printStyle,
   });
@@ -108,7 +108,7 @@ export default function NotesContainer({ id, videoRef }: any) {
         <Box>
           <Box alignItems={"center"} overflowY={"auto"}></Box>
           <Box
-            ref={componentRef}
+            ref={printComponent}
             display={"flex"}
             flexDirection={"column"}
             height={"60vh"}
