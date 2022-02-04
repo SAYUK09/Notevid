@@ -24,11 +24,15 @@ import { useRef } from "react";
 import Logo from "../public/svgs/logo.svg";
 import { MdHome } from "react-icons/md";
 import { HiCollection } from "react-icons/hi";
+import { useAuth } from "../context/authContext";
 
 export function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef: any = useRef();
+  const { user } = useAuth();
+
+  console.log(user.photo);
 
   const NavItem = (props: any) => {
     const { icon, children, ...rest } = props;
@@ -148,13 +152,16 @@ export function Navbar() {
         </IconButton>
 
         <Icon mx={"2"} color="brand.100" as={FaBell} cursor="pointer" />
-        <Avatar
-          ml="4"
-          size="sm"
-          name="anubra266"
-          src="https://avatars.githubusercontent.com/u/68416000?v=4"
-          cursor="pointer"
-        />
+
+        <Link href={"/login"}>
+          <Avatar
+            ml="4"
+            size="sm"
+            name={user?.name}
+            src={user?.photo}
+            cursor="pointer"
+          />
+        </Link>
       </Flex>
     </Flex>
   );

@@ -62,26 +62,30 @@ export default function NotesContainer({ id, videoRef }: any) {
   }
 
   async function addNote() {
-    try {
-      const response = await axios.post("/api/notes", {
-        userId: user._id,
-        videoId: id,
-        note: noteInput?.current?.value,
-        timestamp: Math.round(videoRef.current.getCurrentTime()),
-      });
+    if (user.uid) {
+      try {
+        const response = await axios.post("/api/notes", {
+          userId: user._id,
+          videoId: id,
+          note: noteInput?.current?.value,
+          timestamp: Math.round(videoRef.current.getCurrentTime()),
+        });
 
-      if (response.status == 201) {
-        if (noteInput.current) {
-          noteInput.current.value = "";
+        if (response.status == 201) {
+          if (noteInput.current) {
+            noteInput.current.value = "";
 
-          dispatch(getNotes({ userId: user?._id, videoId: id }));
-          console.log("notfiy");
-          toast.success("Note Added");
+            dispatch(getNotes({ userId: user?._id, videoId: id }));
+            console.log("notfiy");
+            toast.success("Note Added");
+          }
         }
+      } catch (err) {
+        toast.error("something went wrong");
+        console.log(err);
       }
-    } catch (err) {
-      toast.error("something went wrong");
-      console.log(err);
+    } else {
+      toast.warning("Please login to make notes");
     }
   }
 
