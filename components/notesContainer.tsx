@@ -19,6 +19,7 @@ import { useAuth } from "../context/authContext";
 import { getNotes } from "../redux/notesSlice";
 import { RootState } from "../redux/store";
 import { INote } from "../types";
+import { toast } from "react-toastify";
 
 export default function NotesContainer({ id, videoRef }: any) {
   const noteState = useSelector((state: RootState) => state.notes.notesArr);
@@ -74,9 +75,12 @@ export default function NotesContainer({ id, videoRef }: any) {
           noteInput.current.value = "";
 
           dispatch(getNotes({ userId: user?._id, videoId: id }));
+          console.log("notfiy");
+          toast.success("Note Added");
         }
       }
     } catch (err) {
+      toast.error("something went wrong");
       console.log(err);
     }
   }
