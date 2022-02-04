@@ -96,11 +96,13 @@ export function Navbar() {
         icon={<RiMenu4Fill />}
       />
 
-      <Link href="/">
-        <a>
-          <Image width={50} height={50} src={Logo} alt="logo" />
-        </a>
-      </Link>
+      <Box display={{ base: "none", md: "flex" }}>
+        <Link href="/">
+          <a>
+            <Image width={50} height={50} src={Logo} alt="logo" />
+          </a>
+        </Link>
+      </Box>
 
       <Drawer
         isOpen={isOpen}
@@ -142,8 +144,8 @@ export function Navbar() {
         border="1px"
         borderColor={useColorModeValue("dark.100", "light.100")}
         d={"flex"}
-        display={{ base: "none", md: "flex" }}
         alignItems={"center"}
+        w={"60%"}
       >
         <IconButton
           color="brand.100"
@@ -178,8 +180,8 @@ export function Navbar() {
           {colorMode === "light" ? <BsMoonFill /> : <BsFillSunFill />}
         </IconButton>
 
-        <Icon mx={"2"} color="brand.100" as={FaBell} cursor="pointer" />
         <Avatar
+          display={{ base: "none", md: "flex" }}
           ml="4"
           size="sm"
           name="anubra266"
