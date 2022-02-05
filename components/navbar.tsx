@@ -7,28 +7,45 @@ import {
   Flex,
   Icon,
   Input,
-  InputGroup,
-  InputLeftElement,
   useColorModeValue,
   useDisclosure,
   DrawerCloseButton,
   DrawerHeader,
   IconButton,
+  Box,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaBell, FaClipboardCheck } from "react-icons/fa";
+import { FaClipboardCheck } from "react-icons/fa";
 import { RiMenu4Fill } from "react-icons/ri";
 import { BsFillSunFill, BsMoonFill, BsSearch } from "react-icons/bs";
 import { useRef } from "react";
 import Logo from "../public/svgs/logo.svg";
 import { MdHome } from "react-icons/md";
 import { HiCollection } from "react-icons/hi";
+import { useRouter } from "next/router";
 
 export function Navbar() {
+  const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef: any = useRef();
+  const inpRef = useRef<HTMLInputElement>(null);
+
+  function redirectToVideoPage() {
+    // value from the search/input bar
+    const inpText = inpRef.current?.value;
+
+    // conditional check to identify different varient of youtube url
+    if (inpText?.includes(".be")) {
+      const videoId = inpText.substring(17, 28);
+      router.push(`/video/${videoId}`);
+    } else {
+      const videoId = inpText?.substring(inpText.indexOf("=") + 1);
+
+      router.push(`/video/${videoId}`);
+    }
+  }
 
   const NavItem = (props: any) => {
     const { icon, children, ...rest } = props;
@@ -86,11 +103,11 @@ export function Navbar() {
         icon={<RiMenu4Fill />}
       />
 
-      <Link href="/">
-        <a>
+      <Box display={{ base: "none", md: "flex" }}>
+        <Link href="/">
           <Image width={50} height={50} src={Logo} alt="logo" />
-        </a>
-      </Link>
+        </Link>
+      </Box>
 
       <Drawer
         isOpen={isOpen}
@@ -126,14 +143,32 @@ export function Navbar() {
         </DrawerContent>
       </Drawer>
 
-      <InputGroup
+      <Flex
+        rounded={4}
+        px={2}
+        border="1px"
         borderColor={useColorModeValue("dark.100", "light.100")}
-        w="96"
-        display={{ base: "none", md: "flex" }}
+        alignItems={"center"}
+        w={"60%"}
       >
-        <InputLeftElement color="brand.100" children={<BsSearch />} />
-        <Input placeholder="Search for videos..." />
-      </InputGroup>
+        <IconButton
+          color="brand.100"
+          background={"transparent"}
+          aria-label="Search-icon"
+          icon={<BsSearch />}
+        />
+        <Input
+          variant="unstyled"
+          placeholder="Paste the video URL"
+          w="96"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              redirectToVideoPage();
+            }
+          }}
+          ref={inpRef}
+        />
+      </Flex>
 
       <Flex px={"2"} align="center">
         <IconButton
@@ -147,8 +182,8 @@ export function Navbar() {
           {colorMode === "light" ? <BsMoonFill /> : <BsFillSunFill />}
         </IconButton>
 
-        <Icon mx={"2"} color="brand.100" as={FaBell} cursor="pointer" />
         <Avatar
+          display={{ base: "none", md: "flex" }}
           ml="4"
           size="sm"
           name="anubra266"
