@@ -33,8 +33,10 @@ export function Navbar() {
   const inpRef = useRef<HTMLInputElement>(null);
 
   function redirectToVideoPage() {
+    // value from the search/input bar
     const inpText = inpRef.current?.value;
 
+    // conditional check to identify different varient of youtube url
     if (inpText?.includes(".be")) {
       const videoId = inpText.substring(17, 28);
       router.push(`/video/${videoId}`);
@@ -103,9 +105,7 @@ export function Navbar() {
 
       <Box display={{ base: "none", md: "flex" }}>
         <Link href="/">
-          <a>
-            <Image width={50} height={50} src={Logo} alt="logo" />
-          </a>
+          <Image width={50} height={50} src={Logo} alt="logo" />
         </Link>
       </Box>
 
@@ -143,12 +143,11 @@ export function Navbar() {
         </DrawerContent>
       </Drawer>
 
-      <Box
+      <Flex
         rounded={4}
         px={2}
         border="1px"
         borderColor={useColorModeValue("dark.100", "light.100")}
-        d={"flex"}
         alignItems={"center"}
         w={"60%"}
       >
@@ -163,15 +162,13 @@ export function Navbar() {
           placeholder="Paste the video URL"
           w="96"
           onKeyDown={(e) => {
-            console.log("typing");
-
             if (e.key === "Enter") {
               redirectToVideoPage();
             }
           }}
           ref={inpRef}
         />
-      </Box>
+      </Flex>
 
       <Flex px={"2"} align="center">
         <IconButton
