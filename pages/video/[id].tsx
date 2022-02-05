@@ -73,11 +73,10 @@ export default function Video({ id }: ParsedUrlQuery) {
       <Box
         alignItems={"center"}
         justifyContent={"center"}
-        width={"60vw"}
-        height={"100vh"}
+        width={{ base: "90vw", lg: "60vw" }}
         mt={2}
       >
-        <VideoPlayer height="100vh" width="100%" id={id} reference={videoRef} />
+        <VideoPlayer width="100%" id={id} reference={videoRef} />
       </Box>
 
       <Box minW={"30vw"}>
