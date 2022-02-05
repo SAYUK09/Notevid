@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaBell, FaClipboardCheck } from "react-icons/fa";
+import { FaClipboardCheck } from "react-icons/fa";
 import { RiMenu4Fill } from "react-icons/ri";
 import { BsFillSunFill, BsMoonFill, BsSearch } from "react-icons/bs";
 import { useRef } from "react";
@@ -35,9 +35,14 @@ export function Navbar() {
   function redirectToVideoPage() {
     const inpText = inpRef.current?.value;
 
-    const videoId = inpText?.substring(inpText.indexOf("=") + 1);
+    if (inpText?.includes(".be")) {
+      const videoId = inpText.substring(17, 28);
+      router.push(`/video/${videoId}`);
+    } else {
+      const videoId = inpText?.substring(inpText.indexOf("=") + 1);
 
-    router.push(`/video/${videoId}`);
+      router.push(`/video/${videoId}`);
+    }
   }
 
   const NavItem = (props: any) => {
