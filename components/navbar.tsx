@@ -23,6 +23,7 @@ import { useRef } from "react";
 import Logo from "../public/svgs/logo.svg";
 import { MdHome } from "react-icons/md";
 import { HiCollection } from "react-icons/hi";
+import { useAuth } from "../context/authContext";
 import { useRouter } from "next/router";
 
 export function Navbar() {
@@ -30,6 +31,7 @@ export function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef: any = useRef();
+  const { user } = useAuth();
   const inpRef = useRef<HTMLInputElement>(null);
 
   function redirectToVideoPage() {
@@ -182,14 +184,15 @@ export function Navbar() {
           {colorMode === "light" ? <BsMoonFill /> : <BsFillSunFill />}
         </IconButton>
 
-        <Avatar
-          display={{ base: "none", md: "flex" }}
-          ml="4"
-          size="sm"
-          name="anubra266"
-          src="https://avatars.githubusercontent.com/u/68416000?v=4"
-          cursor="pointer"
-        />
+        <Link href={"/login"}>
+          <Avatar
+            ml="4"
+            size="sm"
+            name={user?.name}
+            src={user?.photo}
+            cursor="pointer"
+          />
+        </Link>
       </Flex>
     </Flex>
   );

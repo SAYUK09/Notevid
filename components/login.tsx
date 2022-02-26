@@ -17,11 +17,13 @@ import { auth } from "../config/firebaseConfig";
 import { useAuth } from "../context/authContext";
 import axios from "axios";
 import { IRegisterUser } from "../types";
+import { useRouter } from "next/router";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Login = () => {
   const { user, setUser } = useAuth();
-
-  console.log(user);
+  const router = useRouter();
 
   function login() {
     const googleProvider = new GoogleAuthProvider();
@@ -34,8 +36,10 @@ export const Login = () => {
           photo: String(photoURL),
           uid: String(uid),
         };
-        console.log(userData, "uuuu");
+
         registerUser(userData);
+        toast.success("Logged in successful");
+        router.back();
       })
       .catch((error) => {
         console.log(error);
@@ -49,10 +53,6 @@ export const Login = () => {
       data: { data },
     } = await axios.post("/api/user", userData);
 
-    // const wth = await axios.post("/api/user", userData);
-
-    // console.log(wth, "dataS");
-
     const { name, email, uid, photo, _id } = data;
 
     console.log(name, email, uid, photo, _id, "popop");
@@ -62,7 +62,6 @@ export const Login = () => {
       JSON.stringify({ name, email, uid, photo, _id })
     );
     setUser({ name, email, uid, photo, _id });
-    console.log(data);
   }
 
   function logout() {
@@ -74,8 +73,8 @@ export const Login = () => {
       uid: "",
       _id: "",
     });
-
-    console.log("logouted");
+    toast.success("logged out! See you soon.");
+    router.push("/");
   }
 
   return (
@@ -149,6 +148,8 @@ export const Login = () => {
       <Box className={Styles.bottomBlob}>
         <Image src={BottomblobSvg} className={"bloby"} alt={"blobImage"} />
       </Box>
+
+      <ToastContainer theme="dark" />
     </Box>
   );
 };

@@ -9,6 +9,8 @@ import { ParsedUrlQuery } from "querystring";
 import { useDispatch } from "react-redux";
 import { getNotes } from "../../redux/notesSlice";
 import NotesContainer from "../../components/notesContainer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Params = {
   params: {
@@ -80,6 +82,8 @@ export default function Video({ id }: ParsedUrlQuery) {
       <Box minW={"30vw"}>
         <NotesContainer id={id} videoRef={videoRef} />
       </Box>
+
+      <ToastContainer theme="dark" />
     </Flex>
   );
 }
