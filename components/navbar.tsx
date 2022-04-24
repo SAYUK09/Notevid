@@ -136,9 +136,12 @@ export function Navbar() {
             color="gray.600"
             aria-label="Main Navigation"
           >
-            <NavItem icon={MdHome}>Home</NavItem>
-            <NavItem icon={HiCollection}>Collections</NavItem>
-            <NavItem icon={FaClipboardCheck}>Liked Videos</NavItem>
+            <Link href={"/"}>
+              <NavItem icon={MdHome}>Home</NavItem>
+            </Link>
+            <Link href={"/video-history"}>
+              <NavItem icon={HiCollection}>Notes</NavItem>
+            </Link>
           </Flex>
         </DrawerContent>
       </Drawer>
