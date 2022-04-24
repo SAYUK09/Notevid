@@ -1985,6 +1985,11 @@ cliui@^7.0.2:
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
 
+clsx@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
+  integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
+
 color-convert@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
@@ -4159,6 +4164,13 @@ react-to-print@^2.14.4:
   integrity sha512-lpKKsmkZz1m4G1mBbJtK5qATfYzJRrgLgJ3m0LyF17Ojq22ifxw2AIgH3BROpFDNj0c057Q1dDP53kDIPLVtmw==
   dependencies:
     prop-types "^15.8.1"
+
+react-toastify@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-8.1.1.tgz#79fada2487bcd2ca9b5910015f8d6f78cc65c984"
+  integrity sha512-KQa+j+JHjy69xpPYheaWUq3SjVw1sV2D7/QsXW6Tpo2x9HhUCvASezAMYDmLhfAYoSnaXUVnTNFAgZQA75SExQ==
+  dependencies:
+    clsx "^1.1.1"
 
 react@17.0.2:
   version "17.0.2"
