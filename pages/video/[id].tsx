@@ -58,8 +58,8 @@ export default function Video({ id }: ParsedUrlQuery) {
   const videoRef = useRef<any>();
 
   useEffect(() => {
-    dispatch(getNotes({ userId: user?._id, videoId: id }));
-  }, [user]);
+   user._id && dispatch(getNotes({ userId: user._id, videoId: id }));
+  }, [user._id]);
 
   return (
     <Flex
