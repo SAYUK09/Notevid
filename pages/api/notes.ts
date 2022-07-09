@@ -26,11 +26,16 @@ export default async function handler(
         query: { userId, videoId },
       } = req;
 
-      const notes = await Note.find({
-        user: userId,
-        "notes.video": videoId,
-      });
-      res.status(200).json({ success: true, data: notes });
+      if (userId && videoId) {
+        const notes = await Note.find({
+          user: userId,
+          "notes.video": videoId,
+        });
+        res.status(200).json({ success: true, data: notes });
+      } else {
+        res.status(400).json({ success: false, error: "sassa" });
+      }
+     
     } catch (err) {
       console.log(err);
     }

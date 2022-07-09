@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { BsDownload } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useReactToPrint } from "react-to-print";
@@ -26,6 +26,15 @@ export default function NotesContainer({ id, videoRef }: any) {
   const dispatch = useDispatch();
   const noteInput = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
+
+  useEffect(() => {
+    (async () => {
+      const vidHist = await axios.get("/api/videohistory", {
+        params: { userId: user?._id },
+      });
+      console.log(vidHist, "kakak");
+    })();
+  });
 
   const printComponent = useRef<any>(null);
 
@@ -80,6 +89,13 @@ export default function NotesContainer({ id, videoRef }: any) {
             toast.success("Note Added");
           }
         }
+
+        const vidHis = await axios.post("/api/videohistory", {
+          userId: user._id,
+          videoId: id,
+        });
+
+        console.log("videhis", vidHis);
       } catch (err) {
         toast.error("something went wrong");
         console.log(err);

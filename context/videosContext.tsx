@@ -16,27 +16,30 @@ export const VideoProvider: React.FC = ({ children }) => {
       title: "string",
     },
   ]);
-  useEffect(() => {
-    (async () => {
-      const {
-        data: { items },
-      } = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=javscript%2C%20podcast%2C%20startup&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}&regionCode=in`
-      );
 
-      const videoData = items.map((video: any) => {
-        return {
-          videoId: video.id.videoId,
-          channelId: video.snippet.channelId,
-          channelTitle: video.snippet.channelTitle,
-          description: video.snippet.description,
-          publishTime: video.snippet.publishTime,
-          thumbnail: video.snippet.thumbnails.medium.url,
-          title: video.snippet.title,
-        };
-      });
-      setVideoArr(videoData);
-    })();
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_YOUTUBE_API) {
+      (async () => {
+        const {
+          data: { items },
+        } = await axios.get(
+          `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=javscript%2C%20podcast%2C%20startup&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}&regionCode=in`
+        );
+
+        const videoData = items.map((video: any) => {
+          return {
+            videoId: video.id.videoId,
+            channelId: video.snippet.channelId,
+            channelTitle: video.snippet.channelTitle,
+            description: video.snippet.description,
+            publishTime: video.snippet.publishTime,
+            thumbnail: video.snippet.thumbnails.medium.url,
+            title: video.snippet.title,
+          };
+        });
+        setVideoArr(videoData);
+      })();
+    }
   }, []);
 
   return (
