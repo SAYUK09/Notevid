@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { BsDownload } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useReactToPrint } from "react-to-print";
@@ -20,21 +20,13 @@ import { getNotes } from "../redux/notesSlice";
 import { RootState } from "../redux/store";
 import { INote } from "../types";
 import { toast } from "react-toastify";
+import { addVideoToHistory } from "../redux/videoHistorySlice";
 
 export default function NotesContainer({ id, videoRef }: any) {
   const noteState = useSelector((state: RootState) => state.notes.notesArr);
   const dispatch = useDispatch();
   const noteInput = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
-
-  useEffect(() => {
-    (async () => {
-      const vidHist = await axios.get("/api/videohistory", {
-        params: { userId: user?._id },
-      });
-      console.log(vidHist, "kakak");
-    })();
-  });
 
   const printComponent = useRef<any>(null);
 
@@ -85,17 +77,11 @@ export default function NotesContainer({ id, videoRef }: any) {
             noteInput.current.value = "";
 
             dispatch(getNotes({ userId: user?._id, videoId: id }));
-            console.log("notfiy");
             toast.success("Note Added");
           }
         }
 
-        const vidHis = await axios.post("/api/videohistory", {
-          userId: user._id,
-          videoId: id,
-        });
-
-        console.log("videhis", vidHis);
+        dispatch(addVideoToHistory({ userId: user._id, videoId: id }));
       } catch (err) {
         toast.error("something went wrong");
         console.log(err);

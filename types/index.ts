@@ -58,7 +58,16 @@ export interface INote {
   created_at: string;
 }
 
+export interface IVideoHistoryItem {
+  video: string;
+}
+
 export interface ISliceState {
   notesArr: INote[];
+  status: "Idle" | "Pending" | "Complete";
+}
+
+export interface IVideoHistorySliceState {
+  videoHistoryArr: IVideoHistoryItem[];
   status: "Idle" | "Pending" | "Complete";
 }

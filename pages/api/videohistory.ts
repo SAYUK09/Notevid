@@ -29,13 +29,11 @@ export default async function handler(
     } = req;
 
     try {
-      console.log(userId);
-      const videoHistory = await VideoHistory.find({
+      const videoHistoryArr = await VideoHistory.find({
         user: userId,
       });
 
-      console.log(videoHistory, "jajaj");
-      res.status(201).json({ success: true, data: videoHistory });
+      res.status(201).json({ success: true, data: videoHistoryArr });
     } catch (err) {
       console.log(err);
     }
@@ -55,7 +53,7 @@ export default async function handler(
         });
         res.status(201).json({ success: true, data: addToHistory });
       } else {
-        res.status(204).json({ success: true, data: "Already in History" });
+        res.status(200).json({ success: true, data: "Already In History" });
       }
     } catch (err) {
       console.log(err);
