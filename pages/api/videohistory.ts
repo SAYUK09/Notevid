@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../api-lib/mongodb";
 import VideoHistory from "../../api-lib/models/videoHistory.model";
+import axios from "axios";
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,9 +34,27 @@ export default async function handler(
         user: userId,
       });
 
-      res.status(201).json({ success: true, data: videoHistoryArr });
+      let finalUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}`;
+
+      videoHistoryArr.map(
+        (item) => (finalUrl = finalUrl + `&id=${item.videoId}`)
+      );
+
+      (async () => {
+        try {
+          const data = await axios.get(finalUrl);
+
+          res.status(201).json({ success: true, data: data.data.items });
+        } catch (err) {
+          console.log("err");
+          res
+            .status(500)
+            .json({ success: false, data: "Something went wrong" });
+        }
+      })();
     } catch (err) {
       console.log(err);
+      res.status(500).json({ success: false, data: "Something went wrong" });
     }
   }
 

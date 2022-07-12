@@ -59,6 +59,8 @@ export interface INote {
 }
 
 export interface IVideoHistoryItem {
+  id: string;
+  snippet: any;
   video: string;
 }
 
