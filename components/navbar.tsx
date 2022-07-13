@@ -105,7 +105,7 @@ export function Navbar() {
         icon={<RiMenu4Fill />}
       />
 
-      <Box display={{ base: "none", md: "flex" }}>
+      <Box display={{ base: "none", md: "flex" }} cursor={"pointer"}>
         <Link href="/">
           <Image width={50} height={50} src={Logo} alt="logo" />
         </Link>
@@ -122,7 +122,7 @@ export function Navbar() {
           <DrawerCloseButton alignSelf={"center"} />
 
           <DrawerHeader>
-            <Flex align="center">
+            <Flex align="center" cursor={"pointer"}>
               <Link href="/">
                 <a>
                   <Image width={50} height={50} src={Logo} alt="logo" />

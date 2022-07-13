@@ -23,7 +23,7 @@ export const VideoProvider: React.FC = ({ children }) => {
         const {
           data: { items },
         } = await axios.get(
-          `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=javscript%2C%20podcast%2C%20startup&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}&regionCode=in`
+          `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=javscript%2C%20podcast%2C%20startup&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}&regionCode=in`
         );
 
         const videoData = items.map((video: any) => {

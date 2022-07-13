@@ -115,13 +115,12 @@ export default function NotesContainer({ id, videoRef }: any) {
         height={"75vh"}
         maxH={"100%"}
       >
-        <Box>
-          <Box alignItems={"center"} overflowY={"auto"}></Box>
+        <Box height={"100%"} alignItems="center">
           <Box
             ref={printComponent}
             display={"flex"}
             flexDirection={"column"}
-            height={"60vh"}
+            height={"90%"}
             overflowY={"auto"}
           >
             {noteState.map((item: INote, index: number) => {
