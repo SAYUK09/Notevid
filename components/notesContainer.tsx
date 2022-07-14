@@ -97,7 +97,7 @@ export default function NotesContainer({ id, videoRef }: any) {
       boxShadow={useColorModeValue("lg", "dark-lg")}
       rounded={"lg"}
       mx={"auto"}
-      minW={"30vw"}
+      width={"30vw"}
       py={2}
       px={6}
       maxH={"90vh"}
