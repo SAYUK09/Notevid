@@ -63,10 +63,10 @@ Salient features
 ### Preview
 
 <div align="center">
-	<img src="" alt="demo" width="800">
-	<img src="" alt="demo" width="800">
-	<img src="" alt="demo" width="800">
-	
+	<img src="https://user-images.githubusercontent.com/68416000/178802623-5139676c-36df-4c36-a2c5-0195b7263deb.png" alt="demo" width="800">
+	<img src="https://user-images.githubusercontent.com/68416000/178804066-e39f0f17-2848-47f7-89bb-db2c13494aeb.png" alt="demo" width="800">
+	<img src="https://user-images.githubusercontent.com/68416000/178804289-85862eca-266c-4ec4-a44b-d4ca65773489.png" alt="demo" width="800">
+	<img src="https://user-images.githubusercontent.com/68416000/178804882-3a0e5260-dc48-4f12-828a-c142d9652a58.png" alt="demo" width="800">	
 </div>
 
 ## Built With
@@ -78,10 +78,7 @@ Salient features
 		<td align="center"><a href="https://reactjs.org"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/512px-React-icon.svg.png" width="80px;" height="75px;" style="border-radius: 8px;" alt="React JS"/><br /><b><font color="#777">ReactJs</font></b></a></td>
 		<td align="center"><a href="https://chakra-ui.com/"><img src="https://imgs.search.brave.com/N_70knlG_i_fOaUVRPCuiyOPsGIM_XFWCo0P1dIPgOw/rs:fit:200:200:1/g:ce/aHR0cHM6Ly9pbWcu/c3RhY2tzaGFyZS5p/by9zZXJ2aWNlLzEy/NDIxL3J6eWxVamFm/XzQwMHg0MDAuanBn" width="75px;"  alt="ChakraUI"/><br /><b><font color="#777">Chakra</font></b></a></td>
         <td align="center"><a href="https://www.mongodb.com/"><img src="https://imgs.search.brave.com/9Jo3pDb7DuDMWF4tOyjhEBljLVX5K2IGnb1kT0QRw04/rs:fit:900:900:1/g:ce/aHR0cHM6Ly9tcG5n/LnN1YnBuZy5jb20v/MjAxOTA0MDEvenNm/L2tpc3NwbmctbW9u/Z29kYi1kb2N1bWVu/dC1vcmllbnRlZC1k/YXRhYmFzZS1ub3Nx/bC1vcGVuc2hpZnQt/d2ViLWFwcC1kZXZl/bG9wbWVudC1zZXJ2/Y2llLWluLWRlaHJh/ZHVuLTVjYTFiOGNi/OGEwZjMyLjM3MDgy/NzgxMTU1NDEwMjQ3/NTU2NTUuanBn" width="75px;"  alt="MongoDb"/><br /><b><font color="#777">MongoDB</font></b></a></td>
-	</tr>
-		
-		
-	
+	</tr>	
 </table>
 
 ## Getting Started
