@@ -62,28 +62,36 @@ export default function Video({ id }: ParsedUrlQuery) {
   }, [user]);
 
   return (
-    <Flex
+    <Box
       height={"100vh"}
-      wrap={"wrap"}
-      justifyContent={"space-around"}
       backgroundColor={useColorModeValue("gray.100", "black.100")}
     >
       <Navbar />
 
       <Box
+        display={"flex "}
+        flexDirection={{
+          base: "column",
+          lg: "column",
+          xl: "row",
+        }}
         alignItems={"center"}
-        justifyContent={"center"}
-        width={{ base: "90vw", lg: "60vw" }}
-        mt={2}
+        justifyContent={"space-around"}
       >
-        <VideoPlayer width="100%" id={id} reference={videoRef} />
-      </Box>
+        <Box
+          alignItems={"center"}
+          width={{ base: "90vw", lg: "90vw", xl: "60vw" }}
+          mt={2}
+        >
+          <VideoPlayer width="100%" id={id} reference={videoRef} />
+        </Box>
 
-      <Box minW={"30vw"}>
-        <NotesContainer id={id} videoRef={videoRef} />
+        <Box w={{ base: "90vw", lg: "90vw", xl: "30vw" }}>
+          <NotesContainer id={id} videoRef={videoRef} />
+        </Box>
       </Box>
 
       <ToastContainer theme="dark" />
-    </Flex>
+    </Box>
   );
 }
