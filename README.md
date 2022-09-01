@@ -110,7 +110,7 @@ yarn start
 yarn dev
 ```
 
-> Make sure to install dependencies with `yarn` command before development.\
+> Make sure to install dependencies with `yarn` command before development.
 
 #### Browse the app
 -   [http://localhost:3000](http://localhost:3000)
