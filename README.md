@@ -119,3 +119,4 @@ yarn dev
 
 Email - [sayurikamble123@gmail.com](https://mail.google.com/mail/?view=cm&fs=1&to=omkarak45@gmail.com&su=%23Issue@DogeFlix:&body=Your%20Issue%20Here) \
 Twitter - [@sayuri_kamble](https://twitter.com/sayuri_kamble) 
+Linkedin - [@sayurikamble](https://www.linkedin.com/in/sayurikamble/)
