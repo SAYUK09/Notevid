@@ -15,7 +15,7 @@
 		<li>
 			<a href="#about-the-project">About The Project</a>
 			<ul>
-				<li><a href="#preview">Project Preview</a></li>
+				<li><a href="#preview">Project Preview </a></li>
 				<li><a href="#built-with">Built With</a></li>
 			</ul>
 		</li>
