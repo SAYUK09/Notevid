@@ -5,7 +5,9 @@ import { IVideoHistorySliceState } from "../types";
 export const getVideoHistory = createAsyncThunk(
   "video/getVideoHistory",
   async (reqData: any, thunkApi) => {
+    
     const { userId } = reqData;
+    console.log(userId, "lllll")
     const {
       data: { data },
     } = await axios.get("/api/videohistory", {

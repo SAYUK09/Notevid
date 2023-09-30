@@ -17,7 +17,7 @@ const History: NextPage = () => {
   );
 
   useEffect(() => {
-    dispatch(getVideoHistory({ userId: user?._id }));
+    user._id.length && dispatch(getVideoHistory({ userId: user?._id }));
   }, [user?._id]);
 
   return (
@@ -37,7 +37,7 @@ const History: NextPage = () => {
           return (
             <VideoCard
               key={item.id}
-              imageUrl={item.snippet.thumbnails.maxres.url}
+              imageUrl={item.snippet.thumbnails.medium.url}
               imageAlt={item.snippet.localized.title}
               title={item.snippet.localized.title}
               channel={item.snippet.channelTitle}
