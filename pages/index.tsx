@@ -2,7 +2,7 @@ import { Box, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 import Head from "next/head";
 import { Navbar } from "../components/navbar";
 import VideoCard from "../components/videoCard";
-import { IVideoArr } from "../types";
+import { IVideo } from "../types";
 
 export async function getServerSideProps() {
   const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API;
@@ -40,8 +40,7 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Page({ videos }: { videos: IVideoArr[] }) {
-
+export default function Page({ videos }: { videos: IVideo[] }) {
   return (
     <Box backgroundColor={useColorModeValue("gray.100", "black.100")}>
       <Head>
