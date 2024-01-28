@@ -1,6 +1,8 @@
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box, useColorModeValue, Flex } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React, { useEffect, useRef } from "react";
 import VideoPlayer from "../../components/videoPlay";
+import axios from "axios";
 import { Navbar } from "../../components/navbar";
 import { useAuth } from "../../context/authContext";
 import { ParsedUrlQuery } from "querystring";
@@ -9,8 +11,6 @@ import { getNotes } from "../../redux/notesSlice";
 import NotesContainer from "../../components/notesContainer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { fetchVideos } from "../../utlis/fetchVideos";
-import { IVideo } from "../../types";
 
 type Params = {
   params: {
@@ -20,17 +20,29 @@ type Params = {
 
 export async function getStaticProps({ params }: Params) {
   const id = params.id;
-  return { props: { id } };
+  return {
+    props: {
+      id,
+    },
+  };
 }
 
 export async function getStaticPaths() {
-  const videos = await fetchVideos();
+  const {
+    data: { items },
+  } = await axios.get(
+    `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=javscript%2C%20podcast%2C%20startup&key=${process.env.NEXT_PUBLIC_YOUTUBE_API}&regionCode=in`
+  );
 
-  const paths = videos.map((video: IVideo) => ({
-    params: {
-      id: video.videoId,
-    },
-  }));
+  const videos = items.filter((video: any) => video.id.videoId != undefined);
+
+  const paths = videos.map((video: any) => {
+    return {
+      params: {
+        id: video.id.videoId,
+      },
+    };
+  });
 
   return {
     paths,
@@ -39,10 +51,11 @@ export async function getStaticPaths() {
 }
 
 export default function Video({ id }: ParsedUrlQuery) {
+  const router = useRouter();
   const { user } = useAuth();
   const dispatch = useDispatch();
 
-  const videoRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<any>();
 
   useEffect(() => {
     dispatch(getNotes({ userId: user?._id, videoId: id }));

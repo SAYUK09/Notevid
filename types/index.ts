@@ -1,7 +1,7 @@
 import exp from "constants";
 import { Dispatch, SetStateAction } from "react";
 
-export interface IVideo{
+export interface IVideoArr {
   videoId: string;
   channelId: string;
   channelTitle: string;
@@ -11,6 +11,9 @@ export interface IVideo{
   title: string;
 }
 
+export interface IVideoContext {
+  videos: IVideoArr[];
+}
 
 export interface IVideoCard {
   imageUrl: string;
