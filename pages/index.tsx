@@ -1,19 +1,17 @@
-import type { NextPage } from "next";
-import {
-  Box,
-  ColorModeScript,
-  SimpleGrid,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 import Head from "next/head";
-import theme from "../config/chakraConfig";
 import { Navbar } from "../components/navbar";
 import VideoCard from "../components/videoCard";
-import { useVideos } from "../context/videosContext";
+import { IVideo } from "../types";
+import { fetchVideos } from "../utlis/fetchVideos";
 
-const Home: NextPage = () => {
-  const { videos } = useVideos();
+export async function getServerSideProps() {
+  const videos = await fetchVideos();
 
+  return { props: { videos } };
+}
+
+export default function Page({ videos }: { videos: IVideo[] }) {
   return (
     <Box backgroundColor={useColorModeValue("gray.100", "black.100")}>
       <Head>
@@ -29,7 +27,7 @@ const Home: NextPage = () => {
         minChildWidth="17rem"
         spacing="8"
       >
-        {videos.map((video) => {
+        {videos.map((video: IVideo) => {
           return (
             video.videoId && (
               <VideoCard
@@ -46,6 +44,4 @@ const Home: NextPage = () => {
       </SimpleGrid>
     </Box>
   );
-};
-
-export default Home;
+}
