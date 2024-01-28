@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { BsDownload } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useReactToPrint } from "react-to-print";
@@ -27,6 +27,10 @@ export default function NotesContainer({ id, videoRef }: any) {
   const dispatch = useDispatch();
   const noteInput = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
+
+  useEffect(() => {
+    dispatch(getNotes({ userId: user?._id, videoId: id }));
+  }, [user?._id, id]);
 
   const printComponent = useRef<any>(null);
 
