@@ -107,7 +107,7 @@ export function Navbar() {
 
       <Box display={{ base: "none", md: "flex" }} cursor={"pointer"}>
         <Link href="/">
-          <Image width={50} height={50} src={Logo} alt="logo" />
+          <Image width={35} height={35} src={Logo} alt="logo" />
         </Link>
       </Box>
 
@@ -124,9 +124,7 @@ export function Navbar() {
           <DrawerHeader>
             <Flex align="center" cursor={"pointer"}>
               <Link href="/">
-                <a>
-                  <Image width={50} height={50} src={Logo} alt="logo" />
-                </a>
+                <Image width={35} height={35} src={Logo} alt="logo" />
               </Link>
             </Flex>
           </DrawerHeader>

@@ -6,6 +6,7 @@ import { theme } from "../utlis/chakraTheme";
 import { store } from "../redux/store";
 import { Provider } from "react-redux";
 
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>

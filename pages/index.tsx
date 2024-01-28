@@ -13,9 +13,7 @@ export async function getServerSideProps() {
 export default function Page({ videos }: { videos: IVideo[] }) {
   return (
     <Box backgroundColor={useColorModeValue("gray.100", "black.100")}>
-      <head>
-        <title>NoteVid</title>
-      </head>
+      <title>NoteVid</title>
 
       <Navbar />
 

@@ -12,8 +12,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@reduxjs/toolkit": "^1.7.1",
-    "@types/react-redux": "^7.1.22",
+    "@reduxjs/toolkit": "^2.1.0",
     "axios": "^0.24.0",
     "firebase": "^9.5.0",
     "framer-motion": "^11.0.3",
@@ -31,6 +30,7 @@
   "devDependencies": {
     "@types/node": "^20.11.9",
     "@types/react": "^18.2.48",
+    "@types/react-redux": "^7.1.33",
     "eslint": "7",
     "eslint-config-next": "^14.1.0",
     "typescript": "^5.3.3"
