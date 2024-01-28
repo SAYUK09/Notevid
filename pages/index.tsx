@@ -1,5 +1,4 @@
 import { Box, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
-import Head from "next/head";
 import { Navbar } from "../components/navbar";
 import VideoCard from "../components/videoCard";
 import { IVideo } from "../types";
@@ -14,9 +13,9 @@ export async function getServerSideProps() {
 export default function Page({ videos }: { videos: IVideo[] }) {
   return (
     <Box backgroundColor={useColorModeValue("gray.100", "black.100")}>
-      <Head>
+      <head>
         <title>NoteVid</title>
-      </Head>
+      </head>
 
       <Navbar />
 

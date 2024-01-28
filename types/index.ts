@@ -37,9 +37,8 @@ export interface IRegisterUser {
 
 export interface IAuth {
   user: IAuthUser;
-  setUser: Dispatch<SetStateAction<IAuthUser>>;
+  setUser: React.Dispatch<React.SetStateAction<IAuthUser>>;
 }
-
 export interface INoteData {
   created_at: string;
   notes: INote;

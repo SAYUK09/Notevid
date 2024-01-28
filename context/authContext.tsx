@@ -1,9 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { IAuth, IAuthUser } from "../types";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { IAuthUser, IAuth } from "../types";
 
-export const AuthContext = createContext({} as IAuth);
+export const AuthContext = createContext<IAuth | null>(null);
 
-export const AuthProvider: React.FC = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<IAuthUser>({
     name: "",
     email: "",
@@ -27,6 +29,10 @@ export const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-export const useAuth = (): IAuth => {
-  return useContext(AuthContext);
-};
+export function useAuth(): IAuth {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+}
