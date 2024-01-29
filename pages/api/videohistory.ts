@@ -40,18 +40,14 @@ export default async function handler(
         (item) => (finalUrl = finalUrl + `&id=${item.videoId}`)
       );
 
-      (async () => {
-        try {
-          const data = await axios.get(finalUrl);
+      try {
+        const data = await axios.get(finalUrl);
 
-          res.status(201).json({ success: true, data: data.data.items });
-        } catch (err) {
-          console.log("err");
-          res
-            .status(500)
-            .json({ success: false, data: "Something went wrong" });
-        }
-      })();
+        res.status(201).json({ success: true, data: data.data.items });
+      } catch (err) {
+        console.log("err", err);
+        res.status(500).json({ success: false, data: "Something went wrong" });
+      }
     } catch (err) {
       console.log(err);
       res.status(500).json({ success: false, data: "Something went wrong" });
