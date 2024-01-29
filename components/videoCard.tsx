@@ -6,8 +6,8 @@ import {
   Text,
   useColorModeValue,
   Image,
-  Link,
 } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/next-js";
 import { IVideoCard } from "../types";
 import React from "react";
 
@@ -24,7 +24,7 @@ export default function VideoCard({
         <Box bg={useColorModeValue("gray.100", "gray.800")} maxW="sm">
           <Image src={imageUrl} alt={imageAlt} rounded="lg" />
           <Box py="2">
-            <Box d="flex" alignItems="center">
+            <Box display="flex" alignItems="center">
               <Avatar my={1} size="sm" name={channel} src="" cursor="pointer" />
 
               <Box

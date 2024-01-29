@@ -29,7 +29,9 @@ export default function NotesContainer({ id, videoRef }: any) {
   const { user } = useAuth();
 
   useEffect(() => {
-    dispatch(getNotes({ userId: user?._id, videoId: id }));
+    if (user?._id.length) {
+      dispatch(getNotes({ userId: user?._id, videoId: id }));
+    }
   }, [user?._id, id]);
 
   const printComponent = useRef<any>(null);

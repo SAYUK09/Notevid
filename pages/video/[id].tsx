@@ -1,16 +1,16 @@
+import dynamic from "next/dynamic";
 import { Box, useColorModeValue } from "@chakra-ui/react";
-import React, { useEffect, useRef } from "react";
-import VideoPlayer from "../../components/videoPlay";
+import React, { useRef } from "react";
 import { Navbar } from "../../components/navbar";
-import { useAuth } from "../../context/authContext";
-import { ParsedUrlQuery } from "querystring";
-import { useDispatch } from "react-redux";
-import { getNotes } from "../../redux/notesSlice";
 import NotesContainer from "../../components/notesContainer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchVideos } from "../../utlis/fetchVideos";
 import { IVideo } from "../../types";
+
+const VideoPlayer = dynamic(() => import("../../components/videoPlay"), {
+  ssr: false,
+});
 
 type Params = {
   params: {
@@ -38,15 +38,8 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Video({ id }: ParsedUrlQuery) {
-  const { user } = useAuth();
-  const dispatch = useDispatch();
-
+export default function Video({ id }: { id: string }) {
   const videoRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    dispatch(getNotes({ userId: user?._id, videoId: id }));
-  }, [user]);
 
   return (
     <Box
@@ -78,7 +71,7 @@ export default function Video({ id }: ParsedUrlQuery) {
         </Box>
       </Box>
 
-      <ToastContainer theme="dark" />
+      <ToastContainer />
     </Box>
   );
 }

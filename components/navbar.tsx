@@ -15,7 +15,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@chakra-ui/next-js";
 import { FaClipboardCheck } from "react-icons/fa";
 import { RiMenu4Fill } from "react-icons/ri";
 import { BsFillSunFill, BsMoonFill, BsSearch } from "react-icons/bs";
