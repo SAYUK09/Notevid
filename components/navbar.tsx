@@ -1,16 +1,10 @@
 import {
   useColorMode,
   Avatar,
-  Drawer,
-  DrawerContent,
-  DrawerOverlay,
   Flex,
-  Icon,
   Input,
   useColorModeValue,
   useDisclosure,
-  DrawerCloseButton,
-  DrawerHeader,
   IconButton,
   Box,
   Link,
@@ -21,13 +15,12 @@ import { RiMenu4Fill } from "react-icons/ri";
 import { BsFillSunFill, BsMoonFill, BsSearch } from "react-icons/bs";
 import { useEffect, useRef, useState } from "react";
 import Logo from "../public/svgs/logo.svg";
-import { MdHome } from "react-icons/md";
-import { HiCollection } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { NavbarDrawer } from "./NavbarDrawer";
 
-export function Navbar() {
+export default function Navbar() {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -58,40 +51,6 @@ export function Navbar() {
       router.push(`/video/${videoId}`);
     }
   }
-
-  const NavItem = (props: any) => {
-    const { icon, children, ...rest } = props;
-    return (
-      <Flex
-        align="center"
-        px="4"
-        pl="4"
-        py="3"
-        cursor="pointer"
-        color={useColorModeValue("inherit", "gray.400")}
-        _hover={{
-          bg: "dark.100",
-          color: useColorModeValue("light.100", "gray.200"),
-        }}
-        role="group"
-        fontWeight="semibold"
-        transition=".15s ease"
-        {...rest}
-      >
-        {icon && (
-          <Icon
-            mx="2"
-            boxSize="4"
-            _groupHover={{
-              color: "191A22",
-            }}
-            as={icon}
-          />
-        )}
-        {children}
-      </Flex>
-    );
-  };
 
   return (
     <Flex
@@ -127,59 +86,12 @@ export function Navbar() {
         </Link>
       </Box>
 
-      <Drawer
+      <NavbarDrawer
+        btnRef={btnRef}
+        onOpen={onOpen}
         isOpen={isOpen}
-        placement="left"
         onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent bgColor={useColorModeValue("#F5FAF8", "dark.100")}>
-          <DrawerCloseButton alignSelf={"center"} />
-
-          <DrawerHeader>
-            <Flex align="center" cursor={"pointer"}>
-              <Link
-                _hover={{
-                  textDecoration: "none",
-                }}
-                as={NextLink}
-                href="/"
-              >
-                <Image width={35} height={35} src={Logo} alt="logo" />
-              </Link>
-            </Flex>
-          </DrawerHeader>
-
-          <Flex
-            direction="column"
-            as="nav"
-            fontSize="sm"
-            color="gray.600"
-            aria-label="Main Navigation"
-          >
-            <Link
-              _hover={{
-                textDecoration: "none",
-              }}
-              as={NextLink}
-              href={"/"}
-            >
-              <NavItem icon={MdHome}>Home</NavItem>
-            </Link>
-            <Link
-              _hover={{
-                textDecoration: "none",
-              }}
-              as={NextLink}
-              href={"/history"}
-            >
-              <NavItem icon={HiCollection}>Collections</NavItem>
-            </Link>
-          </Flex>
-        </DrawerContent>
-      </Drawer>
-
+      />
       <Flex
         rounded={4}
         px={2}
