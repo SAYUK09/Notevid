@@ -15,7 +15,6 @@ import React, { useEffect, useRef } from "react";
 import { BsDownload } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useReactToPrint } from "react-to-print";
-import { useAuth } from "../context/authContext";
 import { getNotes } from "../redux/notesSlice";
 import { RootState } from "../redux/store";
 import { INote } from "../types";
@@ -24,15 +23,15 @@ import { addVideoToHistory } from "../redux/videoHistorySlice";
 
 export default function NotesContainer({ id, videoRef }: any) {
   const noteState = useSelector((state: RootState) => state.notes.notesArr);
+  const userState = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
   const noteInput = useRef<HTMLInputElement>(null);
-  const { user } = useAuth();
 
   useEffect(() => {
-    if (user?._id.length) {
-      dispatch(getNotes({ userId: user?._id, videoId: id }));
+    if (userState?._id.length) {
+      dispatch(getNotes({ userId: userState?._id, videoId: id }));
     }
-  }, [user?._id, id]);
+  }, [userState?._id, id]);
 
   const printComponent = useRef<any>(null);
 
@@ -69,10 +68,10 @@ export default function NotesContainer({ id, videoRef }: any) {
   }
 
   async function addNote() {
-    if (user.uid) {
+    if (userState?.uid) {
       try {
         const response = await axios.post("/api/notes", {
-          userId: user._id,
+          userId: userState?._id,
           videoId: id,
           note: noteInput?.current?.value,
           timestamp: Math.round(videoRef.current.getCurrentTime()),
@@ -82,12 +81,12 @@ export default function NotesContainer({ id, videoRef }: any) {
           if (noteInput.current) {
             noteInput.current.value = "";
 
-            dispatch(getNotes({ userId: user?._id, videoId: id }));
+            dispatch(getNotes({ userId: userState?._id, videoId: id }));
             toast.success("Note Added");
           }
         }
 
-        dispatch(addVideoToHistory({ userId: user._id, videoId: id }));
+        dispatch(addVideoToHistory({ userId: userState?._id, videoId: id }));
       } catch (err) {
         toast.error("something went wrong");
         console.log(err);

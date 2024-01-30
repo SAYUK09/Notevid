@@ -5,7 +5,7 @@ import { addVideoToHistory, getVideoHistory } from "../redux/videoHistorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import VideoCard from "../components/videoCard";
-import { Navbar } from "../components/navbar";
+import Navbar from "../components/navbar";
 
 const History: NextPage = () => {
   const userState = useSelector((state: RootState) => state.auth.user);

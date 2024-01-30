@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import React, { useRef } from "react";
-import { Navbar } from "../../components/navbar";
+import  Navbar  from "../../components/navbar";
 import NotesContainer from "../../components/notesContainer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
