@@ -13,26 +13,36 @@ import {
   DrawerHeader,
   IconButton,
   Box,
+  Link,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { Link } from "@chakra-ui/next-js";
-import { FaClipboardCheck } from "react-icons/fa";
+import NextLink from "next/link";
 import { RiMenu4Fill } from "react-icons/ri";
 import { BsFillSunFill, BsMoonFill, BsSearch } from "react-icons/bs";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "../public/svgs/logo.svg";
 import { MdHome } from "react-icons/md";
 import { HiCollection } from "react-icons/hi";
-import { useAuth } from "../context/authContext";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 export function Navbar() {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef: any = useRef();
-  const { user } = useAuth();
   const inpRef = useRef<HTMLInputElement>(null);
+
+  const userState = useSelector((state: RootState) => state.auth.user);
+
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+  if (!hasMounted) {
+    return null;
+  }
 
   function redirectToVideoPage() {
     // value from the search/input bar
@@ -106,7 +116,13 @@ export function Navbar() {
       />
 
       <Box display={{ base: "none", md: "flex" }} cursor={"pointer"}>
-        <Link href="/">
+        <Link
+          _hover={{
+            textDecoration: "none",
+          }}
+          as={NextLink}
+          href="/"
+        >
           <Image width={35} height={35} src={Logo} alt="logo" />
         </Link>
       </Box>
@@ -123,7 +139,13 @@ export function Navbar() {
 
           <DrawerHeader>
             <Flex align="center" cursor={"pointer"}>
-              <Link href="/">
+              <Link
+                _hover={{
+                  textDecoration: "none",
+                }}
+                as={NextLink}
+                href="/"
+              >
                 <Image width={35} height={35} src={Logo} alt="logo" />
               </Link>
             </Flex>
@@ -136,10 +158,22 @@ export function Navbar() {
             color="gray.600"
             aria-label="Main Navigation"
           >
-            <Link href={"/"}>
+            <Link
+              _hover={{
+                textDecoration: "none",
+              }}
+              as={NextLink}
+              href={"/"}
+            >
               <NavItem icon={MdHome}>Home</NavItem>
             </Link>
-            <Link href={"/history"}>
+            <Link
+              _hover={{
+                textDecoration: "none",
+              }}
+              as={NextLink}
+              href={"/history"}
+            >
               <NavItem icon={HiCollection}>Collections</NavItem>
             </Link>
           </Flex>
@@ -185,12 +219,12 @@ export function Navbar() {
           {colorMode === "light" ? <BsMoonFill /> : <BsFillSunFill />}
         </IconButton>
 
-        <Link href={"/login"}>
+        <Link as={NextLink} href="/login">
           <Avatar
             ml="4"
             size="sm"
-            name={user?.name}
-            src={user?.photo}
+            name={userState?.name}
+            src={userState?.photo}
             cursor="pointer"
           />
         </Link>
