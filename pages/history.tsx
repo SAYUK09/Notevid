@@ -4,12 +4,12 @@ import { NextPage } from "next";
 import { addVideoToHistory, getVideoHistory } from "../redux/videoHistorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { useAuth } from "../context/authContext";
 import VideoCard from "../components/videoCard";
 import { Navbar } from "../components/navbar";
 
 const History: NextPage = () => {
-  const { user } = useAuth();
+  const userState = useSelector((state: RootState) => state.auth.user);
+
   const dispatch = useDispatch();
 
   const vidHistState = useSelector(
@@ -17,8 +17,9 @@ const History: NextPage = () => {
   );
 
   useEffect(() => {
-    user._id.length && dispatch(getVideoHistory({ userId: user?._id }));
-  }, [user?._id]);
+    userState?._id.length &&
+      dispatch(getVideoHistory({ userId: userState?._id }));
+  }, [userState?._id]);
 
   return (
     <Box>
