@@ -3,6 +3,7 @@ import Navbar from "../components/navbar";
 import VideoCard from "../components/videoCard";
 import { IVideo } from "../types";
 import { fetchVideos } from "../utlis/fetchVideos";
+import Head from "next/head";
 
 export async function getServerSideProps() {
   const videos = await fetchVideos();
@@ -13,7 +14,10 @@ export async function getServerSideProps() {
 export default function Page({ videos }: { videos: IVideo[] }) {
   return (
     <Box backgroundColor={useColorModeValue("gray.100", "black.100")}>
-      <title>NoteVid</title>
+      <Head>
+        <link rel="icon" href="/svgs/logo.svg" />
+        <title>NoteVid</title>
+      </Head>
 
       <Navbar />
 
