@@ -4,6 +4,7 @@ import VideoCard from "../components/videoCard";
 import { IVideo } from "../types";
 import { fetchVideos } from "../utlis/fetchVideos";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 export async function getServerSideProps() {
   const videos = await fetchVideos();
@@ -12,6 +13,14 @@ export async function getServerSideProps() {
 }
 
 export default function Page({ videos }: { videos: IVideo[] }) {
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+  if (!hasMounted) {
+    return null;
+  }
+
   return (
     <Box backgroundColor={useColorModeValue("gray.100", "black.100")}>
       <Head>
