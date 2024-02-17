@@ -1,14 +1,14 @@
 import dynamic from "next/dynamic";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import React, { useRef } from "react";
-import  Navbar  from "../../components/navbar";
-import NotesContainer from "../../components/notesContainer";
+import Navbar from "../../components/Navbar";
+import NotesContainer from "../../components/NotesContainer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchVideos } from "../../utlis/fetchVideos";
 import { IVideo } from "../../types";
 
-const VideoPlayer = dynamic(() => import("../../components/videoPlay"), {
+const VideoPlayer = dynamic(() => import("../../components/VideoPlay"), {
   ssr: false,
 });
 

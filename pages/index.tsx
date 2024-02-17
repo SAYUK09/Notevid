@@ -1,6 +1,6 @@
 import { Box, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
-import Navbar from "../components/navbar";
-import VideoCard from "../components/videoCard";
+import Navbar from "../components/Navbar";
+import VideoCard from "../components/VideoCard";
 import { IVideo } from "../types";
 import { fetchVideos } from "../utlis/fetchVideos";
 import Head from "next/head";
