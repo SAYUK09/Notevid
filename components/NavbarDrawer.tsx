@@ -17,7 +17,7 @@ import Logo from "../public/svgs/logo.svg";
 import { NavItem } from "./NavItems";
 
 export const NavbarDrawer = ({ btnRef, isOpen, onClose }: any) => {
-//   const { isOpen, onClose } = useDisclosure();
+
   return (
     <Drawer
       isOpen={isOpen}

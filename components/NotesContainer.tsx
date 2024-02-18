@@ -51,16 +51,12 @@ export default function NotesContainer({ id, videoRef }: any) {
     pageStyle: printStyle,
   });
 
-  function getTime(time: number) {
-    let hour, min, sec;
-    time = time;
-    hour = time / 3600;
-    time = time % 3600;
-    min = time / 60;
-    time = time % 60;
-    sec = time;
+  function getTime(time: number): string {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = Math.floor(time % 60);
 
-    return `${Math.round(hour)}:${Math.round(min)}:${Math.round(sec)}`;
+    return `${hours}:${minutes}:${seconds}`;
   }
 
   function seekTo(time: number) {
