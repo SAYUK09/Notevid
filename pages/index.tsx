@@ -1,10 +1,13 @@
 import { Box, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
-import Navbar from "../components/Navbar";
 import VideoCard from "../components/VideoCard";
 import { IVideo } from "../types";
 import { fetchVideos } from "../utlis/fetchVideos";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("../components/Navbar"), {
+  ssr: false,
+});
 
 export async function getServerSideProps() {
   const videos = await fetchVideos();
