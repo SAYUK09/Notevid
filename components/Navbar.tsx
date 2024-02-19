@@ -29,14 +29,6 @@ export default function Navbar() {
 
   const userState = useSelector((state: RootState) => state.auth.user);
 
-  const [hasMounted, setHasMounted] = useState(false);
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-  if (!hasMounted) {
-    return null;
-  }
-
   function redirectToVideoPage() {
     // value from the search/input bar
     const inpText = inpRef.current?.value;
