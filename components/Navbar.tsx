@@ -1,38 +1,33 @@
 import {
   useColorMode,
   Avatar,
-  Drawer,
-  DrawerContent,
-  DrawerOverlay,
   Flex,
-  Icon,
   Input,
   useColorModeValue,
   useDisclosure,
-  DrawerCloseButton,
-  DrawerHeader,
   IconButton,
   Box,
+  Link,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from "next/link";
-import { FaClipboardCheck } from "react-icons/fa";
+import NextLink from "next/link";
 import { RiMenu4Fill } from "react-icons/ri";
 import { BsFillSunFill, BsMoonFill, BsSearch } from "react-icons/bs";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "../public/svgs/logo.svg";
-import { MdHome } from "react-icons/md";
-import { HiCollection } from "react-icons/hi";
-import { useAuth } from "../context/authContext";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { NavbarDrawer } from "./NavbarDrawer";
 
-export function Navbar() {
+export default function Navbar() {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef: any = useRef();
-  const { user } = useAuth();
   const inpRef = useRef<HTMLInputElement>(null);
+
+  const userState = useSelector((state: RootState) => state.auth.user);
 
   function redirectToVideoPage() {
     // value from the search/input bar
@@ -48,40 +43,6 @@ export function Navbar() {
       router.push(`/video/${videoId}`);
     }
   }
-
-  const NavItem = (props: any) => {
-    const { icon, children, ...rest } = props;
-    return (
-      <Flex
-        align="center"
-        px="4"
-        pl="4"
-        py="3"
-        cursor="pointer"
-        color={useColorModeValue("inherit", "gray.400")}
-        _hover={{
-          bg: "dark.100",
-          color: useColorModeValue("light.100", "gray.200"),
-        }}
-        role="group"
-        fontWeight="semibold"
-        transition=".15s ease"
-        {...rest}
-      >
-        {icon && (
-          <Icon
-            mx="2"
-            boxSize="4"
-            _groupHover={{
-              color: "191A22",
-            }}
-            as={icon}
-          />
-        )}
-        {children}
-      </Flex>
-    );
-  };
 
   return (
     <Flex
@@ -106,48 +67,23 @@ export function Navbar() {
       />
 
       <Box display={{ base: "none", md: "flex" }} cursor={"pointer"}>
-        <Link href="/">
-          <Image width={50} height={50} src={Logo} alt="logo" />
+        <Link
+          _hover={{
+            textDecoration: "none",
+          }}
+          as={NextLink}
+          href="/"
+        >
+          <Image width={35} height={35} src={Logo} alt="logo" />
         </Link>
       </Box>
 
-      <Drawer
+      <NavbarDrawer
+        btnRef={btnRef}
+        onOpen={onOpen}
         isOpen={isOpen}
-        placement="left"
         onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent bgColor={useColorModeValue("#F5FAF8", "dark.100")}>
-          <DrawerCloseButton alignSelf={"center"} />
-
-          <DrawerHeader>
-            <Flex align="center" cursor={"pointer"}>
-              <Link href="/">
-                <a>
-                  <Image width={50} height={50} src={Logo} alt="logo" />
-                </a>
-              </Link>
-            </Flex>
-          </DrawerHeader>
-
-          <Flex
-            direction="column"
-            as="nav"
-            fontSize="sm"
-            color="gray.600"
-            aria-label="Main Navigation"
-          >
-            <Link href={"/"}>
-              <NavItem icon={MdHome}>Home</NavItem>
-            </Link>
-            <Link href={"/history"}>
-              <NavItem icon={HiCollection}>Collections</NavItem>
-            </Link>
-          </Flex>
-        </DrawerContent>
-      </Drawer>
-
+      />
       <Flex
         rounded={4}
         px={2}
@@ -187,12 +123,12 @@ export function Navbar() {
           {colorMode === "light" ? <BsMoonFill /> : <BsFillSunFill />}
         </IconButton>
 
-        <Link href={"/login"}>
+        <Link as={NextLink} href="/login">
           <Avatar
             ml="4"
             size="sm"
-            name={user?.name}
-            src={user?.photo}
+            name={userState?.name}
+            src={userState?.photo}
             cursor="pointer"
           />
         </Link>

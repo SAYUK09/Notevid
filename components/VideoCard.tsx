@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import {
   Avatar,
   Box,
@@ -6,8 +5,9 @@ import {
   Text,
   useColorModeValue,
   Image,
-  Link,
 } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/next-js";
+import NextLink from "next/link";
 import { IVideoCard } from "../types";
 import React from "react";
 
@@ -20,11 +20,15 @@ export default function VideoCard({
 }: IVideoCard) {
   return (
     <Flex justifyContent={"center"}>
-      <Link href={`/video/${id}`}>
+      <Link
+        href={`/video/${id}`}
+        as={NextLink}
+        _hover={{ textDecoration: "none" }}
+      >
         <Box bg={useColorModeValue("gray.100", "gray.800")} maxW="sm">
           <Image src={imageUrl} alt={imageAlt} rounded="lg" />
           <Box py="2">
-            <Box d="flex" alignItems="center">
+            <Box display="flex" alignItems="center">
               <Avatar my={1} size="sm" name={channel} src="" cursor="pointer" />
 
               <Box

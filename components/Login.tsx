@@ -14,22 +14,23 @@ import {
 import Styles from "../styles/loginPage.module.css";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
-import { useAuth } from "../context/authContext";
-import axios from "axios";
-import { IRegisterUser } from "../types";
 import { useRouter } from "next/router";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, logoutUser } from "../redux/authSlice";
+import { RootState } from "../redux/store";
 
-export const Login = () => {
-  const { user, setUser } = useAuth();
+export default function Login() {
+  const userState = useSelector((state: RootState) => state.auth.user);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   function login() {
     const googleProvider = new GoogleAuthProvider();
     console.log("enter");
     signInWithPopup(auth, googleProvider)
-      .then(({ user: { displayName, email, photoURL, uid } }) => {
+      .then(async ({ user: { displayName, email, photoURL, uid } }) => {
         const userData = {
           name: String(displayName),
           email: String(email),
@@ -37,7 +38,8 @@ export const Login = () => {
           uid: String(uid),
         };
 
-        registerUser(userData);
+        dispatch(registerUser(userData));
+
         toast.success("Logged in successful");
         router.back();
       })
@@ -47,32 +49,8 @@ export const Login = () => {
       });
   }
 
-  async function registerUser(userData: IRegisterUser) {
-    console.log(userData, "userData");
-    const {
-      data: { data },
-    } = await axios.post("/api/user", userData);
-
-    const { name, email, uid, photo, _id } = data;
-
-    console.log(name, email, uid, photo, _id, "popop");
-
-    localStorage.setItem(
-      "auth",
-      JSON.stringify({ name, email, uid, photo, _id })
-    );
-    setUser({ name, email, uid, photo, _id });
-  }
-
   function logout() {
-    localStorage.removeItem("auth");
-    setUser({
-      name: "",
-      email: "",
-      photo: "",
-      uid: "",
-      _id: "",
-    });
+    dispatch(logoutUser());
     toast.success("logged out! See you soon.");
     router.push("/");
   }
@@ -100,17 +78,17 @@ export const Login = () => {
             color={useColorModeValue("gray.800", "light.100")}
             fontSize={{ base: "2xl", md: "3xl" }}
           >
-            {user.uid ? "Logout" : "Sign in with Google "}
+            {userState?.uid ? "Logout" : "Sign in with Google "}
           </Heading>
           <Text
             fontSize={{ base: "sm", sm: "md" }}
             color={useColorModeValue("gray.800", "gray.400")}
           >
-            {user.uid ? "See you soon!" : "Login in within seconds! "}
+            {userState?.uid ? "See you soon!" : "Login in within seconds! "}
           </Text>
 
           <Stack spacing={6}>
-            {user.uid.length ? (
+            {userState?.uid.length ? (
               <Button
                 onClick={logout}
                 bg={"brand.100"}

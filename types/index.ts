@@ -1,7 +1,7 @@
 import exp from "constants";
 import { Dispatch, SetStateAction } from "react";
 
-export interface IVideoArr {
+export interface IVideo{
   videoId: string;
   channelId: string;
   channelTitle: string;
@@ -11,9 +11,6 @@ export interface IVideoArr {
   title: string;
 }
 
-export interface IVideoContext {
-  videos: IVideoArr[];
-}
 
 export interface IVideoCard {
   imageUrl: string;
@@ -40,9 +37,8 @@ export interface IRegisterUser {
 
 export interface IAuth {
   user: IAuthUser;
-  setUser: Dispatch<SetStateAction<IAuthUser>>;
+  setUser: React.Dispatch<React.SetStateAction<IAuthUser>>;
 }
-
 export interface INoteData {
   created_at: string;
   notes: INote;

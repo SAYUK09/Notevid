@@ -1,12 +1,12 @@
+import dynamic from "next/dynamic";
 import React from "react";
-import { Login } from "../components/login";
+
+const Login = dynamic(() => import("../components/Login"), {
+  ssr: false,
+});
 
 function login() {
-  return (
-    <div>
-      <Login />
-    </div>
-  );
+  return <Login />;
 }
 
 export default login;
